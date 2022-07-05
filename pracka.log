@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  5 JUL 2022 16:21
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  5 JUL 2022 18:47
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -122,7 +122,7 @@ Chapter 1.
 [5] [6]
 Chapter 2.
 
-Overfull \hbox (22.9248pt too wide) in paragraph at lines 202--204
+Overfull \hbox (22.9248pt too wide) in paragraph at lines 200--202
 []\T1/cmr/m/n/10.95 Fetorem \T1/cmr/m/it/10.95 nazwiemy skupi-e-nie blaba speª-
 ni-a-j¡ce nast¦pu-j¡cy \T1/cmr/m/n/10.95 ak-sjo-mat reperkusaty-
  []
@@ -131,37 +131,37 @@ ni-a-j¡ce nast¦pu-j¡cy \T1/cmr/m/n/10.95 ak-sjo-mat reperkusaty-
 
 ]
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 241.
+(Font)              <9> on input line 239.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 241.
+(Font)              <5> on input line 239.
  [8]
 Chapter 3.
 
-Overfull \hbox (14.43745pt too wide) in paragraph at lines 260--267
+Overfull \hbox (14.43745pt too wide) in paragraph at lines 258--265
 \T1/cmr/m/n/10.95 Najprostszym sposobem wyko-na-nia bla-bal-izy jest siªowe prz
 eszukanie caªej przestrzeni rozwi¡za«.
  []
 
 
-Overfull \hbox (12.41159pt too wide) in paragraph at lines 289--292
+Overfull \hbox (12.41159pt too wide) in paragraph at lines 287--290
 \T1/cmr/m/n/10.95 poszuki-wa-nia wspóªczyn-ników bla-bal-izy jest lin-iowy ze w
 zgl¦du na wymiar wyj±-ciowej przestrzeni
  []
 
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 293.
+(Font)              <14.4> on input line 291.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 293.
+(Font)              <7> on input line 291.
 [9
 
 ] [10]
 Chapter 4.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <24.88> on input line 312.
+(Font)              <24.88> on input line 310.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <20.74> on input line 312.
+(Font)              <20.74> on input line 310.
 LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <17.28> on input line 312.
+(Font)              <17.28> on input line 310.
 [11
 
 ] [12
@@ -169,7 +169,7 @@ LaTeX Font Info:    External font `cmex10' loaded for size
 ]
 Chapter 5.
 LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 3
-35.
+33.
 (/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
 File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 ) [13] [14
@@ -177,13 +177,13 @@ File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
 ]
 Chapter 6.
 
-Overfull \hbox (4.8249pt too wide) in paragraph at lines 344--350
+Overfull \hbox (4.8249pt too wide) in paragraph at lines 342--348
 \T1/cmr/m/n/10.95 W pracy przed-staw-iono pier-wsz¡ efek-ty-wn¡ im-ple-men-tacj
 ¦ bla-bal-iza-tora ró»ni-cowego. Umiej¦t-
  []
 
 
-Overfull \hbox (8.32555pt too wide) in paragraph at lines 344--350
+Overfull \hbox (8.32555pt too wide) in paragraph at lines 342--348
 \T1/cmr/m/n/10.95 podobny przeªom, jak dla in-nych dziedzin wiedzy stanow-iªo o
 gªosze-nie teorii Mikoªaja Kopernika
  []
@@ -236,7 +236,7 @@ e/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf
 nts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type
 1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/publ
 ic/amsfonts/cm/cmsy8.pfb>
-Output written on pracka.pdf (25 pages, 257914 bytes).
+Output written on pracka.pdf (25 pages, 257890 bytes).
 PDF statistics:
  704 PDF objects out of 1000 (max. 8388607)
  148 compressed objects within 2 object streams

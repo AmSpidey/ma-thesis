@@ -117,7 +117,7 @@
 % Stock prices forecasting, weather forecasting, business planning, resource allocation are only a few of the many possible applications for time series forecasting.
 
 Time series is a sequence of data points measured across time with a fixed frequency.
-It is one of the most widespread type of data, making its forecasting incredibly useful for vast industries and research areas. Among others it is being used for stock market analysis, weather prediction, resource allocation planning.
+It is one of the most widespread type of data, making its forecasting incredibly useful for vast industries and research areas. Among others it is being used for stock market analysis, weather prediction and resource allocation planning.
 
 % w ehancing: "Although
 %still widely used, traditional time series forecasting models, such as State Space Models (SSMs) [2]
@@ -133,8 +133,7 @@ It is one of the most widespread type of data, making its forecasting incredibly
 It is not hard to imagine that this wide usage brought time series a lot of attention in the past. One of the most widely known method for their forecasting is ARIMA (autoregressive integrated moving average). Despite its popularity, it comes with some disadvantages. It is necessary to fit it separately for every similar time series and it requires some expertise to provide the best set of parameters. Furthermore, it is not trusted to work well with large-scale and seasonal tasks. [SOURCES?]
 
 This brings us to the next era of the time series forecasting: deep neural networks.
-The achievements in natural language processing (NLP) including RNN and Transformer self-attention models have almost directly transferred to time series, due to a strikingly similar nature of both problems. However, RNNs and their successors (LSTM[source], GRU[source]) have difficulty with long sequences [13 z enhancing locality], making them struggle with time series that can have low frequency seasonality.
-% TODO: check out czy transformer oryginalnie rzeczywiście był pod NLP i RNN też czy sobie to wymyśliłaś
+The achievements in natural language processing (NLP) including RNN and Transformer self-attention models have almost directly transferred to time series, due to a strikingly similar nature of both problems. However, RNNs and their successors (LSTM[source], GRU[source]) have difficulty with long sequences [13 z enhancing locality], making them struggle with time series that can contain have long-term dependencies.
 
 
 Transformer's self-attention has revolutionized the world of long sequence processing, making it possible for the model to deal with larger-scale forecasting. However, there are several problems with integrating it directly for the time series forecasting usage: its local context-blindness[ENHANCING LOCALITY] and large space-complexity growing quadratically with sequence length.
@@ -158,7 +157,7 @@ One solution was proposed in [ENHANCING] by introducing convolutional self-atten
 Transformer proposed in [ENHANCING LOCALITY] is centered around the idea of every point in a time series being drawn from some Gaussian distribution. Thus, the model has to only predict parameters of these distributions, ensuring that each prediction is partially random and introducing Gaussian noise to it.
 
 In reality, it's not always the case that every time series' noise comes from a Gaussian distribution.
-It would be more useful if we could model any continuous distribution instead. One way to achieve that is by using a discrete distribution with categories that are granular enough. Obviously, this comes with a disadvantage of being able to predict only a discretely limited value, which could cost some accuracy. However, the expectation is that this problem can be solved easily by just using a sufficiently large number of categories.
+It would be more useful if we could model any continuous distribution instead. One way to approximate it is by using a discrete distribution with categories that are granular enough. Obviously, this comes with a disadvantage of being able to predict only a discretely limited value, which could cost some accuracy. However, the expectation is that this problem can be solved easily by just using a sufficiently large number of categories.
 
 The goal of our project was using the Transformer model to predict time series assuming that each point in the sequence belongs to a categorical distribution.
 
@@ -167,15 +166,14 @@ The goal of our project was using the Transformer model to predict time series a
 
 \section{Contributions}\label{r:contributions}
 
-Work described in this thesis has been done via a collaboration with scientists from AWARElab. ??? add exactly Institute of Mathematics of Polish Academy of Sciences
+Work described in this thesis has been done via a collaboration with scientists from Institute of Mathematics of Polish Academy of Sciences.
 
 My most important contributions are:
 \begin{enumerate}
 	\item Gaussian distribution-based Transformer
 	\item Experiments with the Gaussian distribution-based Transformer
 	\item Base implementation of the dataset feeder
-	\item Time features as in the [ENHANCING LOCALITY]
-	\item TODO: napisz o sprawdzaniu gaussowskości noise
+	\item Time features as in the [ENHANCING LOCALITY] (on the data feeding side)
 \end{enumerate}
 
 \chapter{Podstawowe pojęcia}\label{r:pojecia}
