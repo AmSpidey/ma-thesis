@@ -16,6 +16,12 @@
 % dodaj opcję [en] dla wersji angielskiej (mogą być obie: [licencjacka,en])
 \documentclass[en]{pracamgr}
 
+%% Imports the package natbib
+\usepackage[square,numbers]{natbib}
+
+%% Sets the bibliography style
+\bibliographystyle{abbrvnat}
+
 % Dane magistranta:
 \autor{Marta Nowakowska}{385914}
 
@@ -117,7 +123,7 @@
 % Stock prices forecasting, weather forecasting, business planning, resource allocation are only a few of the many possible applications for time series forecasting.
 
 Time series is a sequence of data points measured across time with a fixed frequency.
-It is one of the most widespread type of data, making its forecasting incredibly useful for vast industries and research areas. Among others it is being used for stock market analysis, weather prediction and resource allocation planning.
+It is one of the most widespread type of data, making its forecasting incredibly useful for vast industries and research areas. Among others they are being used for stock market analysis, weather prediction and resource allocation planning.
 
 % w ehancing: "Although
 %still widely used, traditional time series forecasting models, such as State Space Models (SSMs) [2]
@@ -130,15 +136,15 @@ It is one of the most widespread type of data, making its forecasting incredibly
 %forecasting tasks. Further, information across similar time series cannot be shared since each time
 %series is fitted individually.
 
-It is not hard to imagine that this wide usage brought time series a lot of attention in the past. One of the most widely known method for their forecasting is ARIMA (autoregressive integrated moving average). Despite its popularity, it comes with some disadvantages. It is necessary to fit it separately for every similar time series and it requires some expertise to provide the best set of parameters. Furthermore, it is not trusted to work well with large-scale and seasonal tasks. [SOURCES?]
+It is not hard to imagine that this wide usage brought time series a lot of attention in the past. One of the most widely known method for their forecasting is ARIMA (autoregressive integrated moving average). Despite its popularity, it comes with some disadvantages, like the necessity to fit it separately for every similar time series and for the user to have some expertise in the parameter selection procedure.
 
 This brings us to the next era of the time series forecasting: deep neural networks.
-The achievements in natural language processing (NLP) including RNN and Transformer self-attention models have almost directly transferred to time series, due to a strikingly similar nature of both problems. However, RNNs and their successors (LSTM[source], GRU[source]) have difficulty with long sequences [13 z enhancing locality], making them struggle with time series that can contain have long-term dependencies.
+The achievements in the natural language processing (NLP) field, including RNN and Transformer self-attention models have almost directly transferred to time series, due to a strikingly similar nature of both problems. However, RNNs and their successors (LSTM\cite{lstm}, GRU\cite{gru}) have difficulty with long sequences\cite{context}, causing them to struggle with time series that can contain long-term dependencies.
 
 
-Transformer's self-attention has revolutionized the world of long sequence processing, making it possible for the model to deal with larger-scale forecasting. However, there are several problems with integrating it directly for the time series forecasting usage: its local context-blindness[ENHANCING LOCALITY] and large space-complexity growing quadratically with sequence length.
+Transformer's\cite{tr} self-attention has revolutionized the world of long sequence processing, making it possible for the model to deal with larger-scale forecasting. However, there are several problems with integrating it directly for the time series forecasting usage: its local context-blindness\cite{enhancing} and large space-complexity growing quadratically with the sequence length.
 %While self-attention is quite space-consuming (its complexity grows quadratically with sequence length [SOURCE, POSSIBLY FROM ENHANCING]), several solutions were proposed to make its usage feasible for capturing long-term dependencies.
-One solution was proposed in [ENHANCING] by introducing convolutional self-attention and LogSparse Transformer.
+One solution was proposed in \cite{enhancing} by introducing convolutional self-attention and LogSparse Transformer.
 
 
 
@@ -154,12 +160,12 @@ One solution was proposed in [ENHANCING] by introducing convolutional self-atten
 
 \section{Problem statement}\label{r:problemst}
 
-Transformer proposed in [ENHANCING LOCALITY] is centered around the idea of every point in a time series being drawn from some Gaussian distribution. Thus, the model has to only predict parameters of these distributions, ensuring that each prediction is partially random and introducing Gaussian noise to it.
+Transformer proposed in \cite{enhancing} is centered around the idea of every point in a time series being drawn from some Gaussian distribution. Thus, the model's goal is to predict the parameters of these distributions, ensuring that each prediction is partially random and introducing Gaussian noise to it.
 
 In reality, it's not always the case that every time series' noise comes from a Gaussian distribution.
 It would be more useful if we could model any continuous distribution instead. One way to approximate it is by using a discrete distribution with categories that are granular enough. Obviously, this comes with a disadvantage of being able to predict only a discretely limited value, which could cost some accuracy. However, the expectation is that this problem can be solved easily by just using a sufficiently large number of categories.
 
-The goal of our project was using the Transformer model to predict time series assuming that each point in the sequence belongs to a categorical distribution.
+The goal of our project was using the Transformer model to predict time series assuming that each point in the sequences belongs to a categorical distribution.
 
 
 %One interesting direction that was not thoroughly explored 
@@ -173,7 +179,7 @@ My most important contributions are:
 	\item Gaussian distribution-based Transformer
 	\item Experiments with the Gaussian distribution-based Transformer
 	\item Base implementation of the dataset feeder
-	\item Time features as in the [ENHANCING LOCALITY] (on the data feeding side)
+	\item Time features as in \cite{enhancing} (on the data feeding side)
 \end{enumerate}
 
 \chapter{Podstawowe pojęcia}\label{r:pojecia}
@@ -421,7 +427,7 @@ utajnieniu.
     $\gamma_{7}$ & 1,331 & 16435,01 & 13,42 & 0,01 \\
     $\gamma_{8}$ & 1,332 & 865336,01 & 13,42 & 0,01 \\
     $\gamma_{9}$ & 1,331 & 34,01 & 13,42 & 0,01 \\
-    $\gamma_{10}$ & 1,332 & 7891432,01 & 13,42 & 0,01 \\
+%    $\gamma_{10}$ & 1,332 & 7891432,01 & 13,42 & 0,01 \\
     $\gamma_{11}$ & 1,331 & 8913,01 & 13,42 & 0,01 \\
     $\gamma_{12}$ & 1,331 & 13,01 & 13,42 & 0,01 \\
     $\gamma_{13}$ & 1,334 & 789,01 & 13,42 & 0,01 \\
@@ -433,45 +439,68 @@ utajnieniu.
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
 
-\bibitem[Bea65]{beaman} Juliusz Beaman, \textit{Morbidity of the Jolly
-    function}, Mathematica Absurdica, 117 (1965) 338--9.
+%\bibliography{bibFile}
 
-\bibitem[Blar16]{eb1} Elizjusz Blarbarucki, \textit{O pewnych
-    aspektach pewnych aspektów}, Astrolog Polski, Zeszyt 16, Warszawa
-  1916.
 
-\bibitem[Fif00]{ffgg} Filigran Fifak, Gizbert Gryzogrzechotalski,
-  \textit{O blabalii fetorycznej}, Materiały Konferencji Euroblabal
-  2000.
+%@article{einstein,
+%	author =       "Albert Einstein",
+%	title =        "On the electrodynamics of moving bodies",
+%	journal =      "Annalen der Physik",
+%	volume =       "322",
+%	number =       "10",
+%	pages =        "891--921",
+%	year =         "1905"
+%}
+%
+\bibitem{enhancing} Shiyang Li, Xiaoyong Jin, Yao Xuan, Xiyou Zhou, Wenhu Chen, Yu-Xiang Wang and Xifeng Yan. \textit{Enhancing the Locality and Breaking the Memory
+	Bottleneck of Transformer on Time Series Forecasting}. arXiv:1907.00235, 2019.
 
-\bibitem[Fif01]{ff-sr} Filigran Fifak, \textit{O fetorach
-    $\sigma$-$\rho$}, Acta Fetorica, 2001.
+\bibitem{lstm} Sepp Hochreiter and Jürgen Schmidhuber. \textit{Long short-term memory}. Neural computation, 9(8):1735–1780, 1997.
 
-\bibitem[Głomb04]{grglo} Gryzybór Głombaski, \textit{Parazytonikacja
-    blabiczna fetorów --- nowa teoria wszystkiego}, Warszawa 1904.
+\bibitem{gru} Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. \textit{On the properties of
+	neural machine translation: Encoder-decoder approaches}. arXiv preprint arXiv:1409.1259, 2014.
 
-\bibitem[Hopp96]{hopp} Claude Hopper, \textit{On some $\Pi$-hedral
-    surfaces in quasi-quasi space}, Omnius University Press, 1996.
+\bibitem{context} Urvashi Khandelwal, He He, Peng Qi, and Dan Jurafsky. \textit{Sharp nearby, fuzzy far away: How neural language models use context}. arXiv preprint arXiv:1805.04623, 2018.
 
-\bibitem[Leuk00]{leuk} Lechoslav Leukocyt, \textit{Oval mappings ab ovo},
-  Materiały Białostockiej Konferencji Hodowców Drobiu, 2000.
+\bibitem{tr} Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz
+Kaiser, and Illia Polosukhin. \textit{Attention is all you need}. NIPS 2017.
 
-\bibitem[Rozk93]{JR} Josip A.~Rozkosza, \textit{O pewnych własnościach
-    pewnych funkcji}, Północnopomorski Dziennik Matematyczny 63491
-  (1993).
-
-\bibitem[Spy59]{spyrpt} Mrowclaw Spyrpt, \textit{A matrix is a matrix
-    is a matrix}, Mat. Zburp., 91 (1959) 28--35.
-
-\bibitem[Sri64]{srinis} Rajagopalachari Sriniswamiramanathan,
-  \textit{Some expansions on the Flausgloten Theorem on locally
-    congested lutches}, J. Math.  Soc., North Bombay, 13 (1964) 72--6.
-
-\bibitem[Whi25]{russell} Alfred N. Whitehead, Bertrand Russell,
-  \textit{Principia Mathematica}, Cambridge University Press, 1925.
-
-\bibitem[Zen69]{heu} Zenon Zenon, \textit{Użyteczne heurystyki
-    w~blabalizie}, Młody Technik, nr~11, 1969.
+%\bibitem[Blar16]{eb1} Elizjusz Blarbarucki, \textit{O pewnych
+%    aspektach pewnych aspektów}, Astrolog Polski, Zeszyt 16, Warszawa
+%  1916.
+%
+%\bibitem[Fif00]{ffgg} Filigran Fifak, Gizbert Gryzogrzechotalski,
+%  \textit{O blabalii fetorycznej}, Materiały Konferencji Euroblabal
+%  2000.
+%
+%\bibitem[Fif01]{ff-sr} Filigran Fifak, \textit{O fetorach
+%    $\sigma$-$\rho$}, Acta Fetorica, 2001.
+%
+%\bibitem[Głomb04]{grglo} Gryzybór Głombaski, \textit{Parazytonikacja
+%    blabiczna fetorów --- nowa teoria wszystkiego}, Warszawa 1904.
+%
+%\bibitem[Hopp96]{hopp} Claude Hopper, \textit{On some $\Pi$-hedral
+%    surfaces in quasi-quasi space}, Omnius University Press, 1996.
+%
+%\bibitem[Leuk00]{leuk} Lechoslav Leukocyt, \textit{Oval mappings ab ovo},
+%  Materiały Białostockiej Konferencji Hodowców Drobiu, 2000.
+%
+%\bibitem[Rozk93]{JR} Josip A.~Rozkosza, \textit{O pewnych własnościach
+%    pewnych funkcji}, Północnopomorski Dziennik Matematyczny 63491
+%  (1993).
+%
+%\bibitem[Spy59]{spyrpt} Mrowclaw Spyrpt, \textit{A matrix is a matrix
+%    is a matrix}, Mat. Zburp., 91 (1959) 28--35.
+%
+%\bibitem[Sri64]{srinis} Rajagopalachari Sriniswamiramanathan,
+%  \textit{Some expansions on the Flausgloten Theorem on locally
+%    congested lutches}, J. Math.  Soc., North Bombay, 13 (1964) 72--6.
+%
+%\bibitem[Whi25]{russell} Alfred N. Whitehead, Bertrand Russell,
+%  \textit{Principia Mathematica}, Cambridge University Press, 1925.
+%
+%\bibitem[Zen69]{heu} Zenon Zenon, \textit{Użyteczne heurystyki
+%    w~blabalizie}, Młody Technik, nr~11, 1969.
 
 \end{thebibliography}
 
