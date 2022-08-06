@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  17 JUL 2022 13:01
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  8 AUG 2022 16:55
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -128,189 +128,47 @@ Underfull \hbox (badness 10000) in paragraph at lines 109--109
 Chapter 1.
 [5] [6]
 Chapter 2.
-
-Overfull \hbox (22.9248pt too wide) in paragraph at lines 206--208
-[]\T1/cmr/m/n/10.95 Fetorem \T1/cmr/m/it/10.95 nazwiemy skupi-e-nie blaba speª-
-ni-a-j¡ce nast¦pu-j¡cy \T1/cmr/m/n/10.95 ak-sjo-mat reperkusaty-
- []
-
-
-Package natbib Warning: Citation `grglo' on page 7 undefined on input line 215.
-
-
-
-Package natbib Warning: Citation `JR' on page 7 undefined on input line 224.
-
 [7
 
 ]
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <9> on input line 245.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <5> on input line 245.
- [8]
-Chapter 3.
-
-Overfull \hbox (14.43745pt too wide) in paragraph at lines 264--271
-\T1/cmr/m/n/10.95 Najprostszym sposobem wyko-na-nia bla-bal-izy jest siªowe prz
-eszukanie caªej przestrzeni rozwi¡za«.
+Overfull \hbox (4.17157pt too wide) in paragraph at lines 238--239
+[]\T1/cmr/m/n/10.95 The us-age of con-vo-lu-tion is sup-posed to off-set the do
+t-product at-ten-tion's context-blindness.
  []
 
+[8] [9] [10
 
-Package natbib Warning: Citation `heu' on page 9 undefined on input line 273.
-
-
-Package natbib Warning: Citation `ff-sr' on page 9 undefined on input line 276.
-
-
-
-Package natbib Warning: Citation `grglo' on page 9 undefined on input line 283.
-
-
-
-Overfull \hbox (3.08102pt too wide) in paragraph at lines 283--292
-\T1/cmr/m/n/10.95 Teoria Gªom-bask-iego (zob. [\T1/cmr/bx/n/10.95 ? \T1/cmr/m/n
-/10.95 ]) dostar-cza el-e-ganck-iego narz¦dzia opisu prze-j±-cia do przestrzeni
-
- []
-
-
-Overfull \hbox (12.41159pt too wide) in paragraph at lines 293--296
-\T1/cmr/m/n/10.95 poszuki-wa-nia wspóªczyn-ników bla-bal-izy jest lin-iowy ze w
-zgl¦du na wymiar wyj±-ciowej przestrzeni
- []
-
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <14.4> on input line 297.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <7> on input line 297.
-
-Package natbib Warning: Citation `ff-sr' on page 9 undefined on input line 306.
-
-
-[9
-
-] [10]
-Chapter 4.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <24.88> on input line 316.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <20.74> on input line 316.
-LaTeX Font Info:    External font `cmex10' loaded for size
-(Font)              <17.28> on input line 316.
-
-Package natbib Warning: Citation `russell' on page 11 undefined on input line 3
-24.
-
-
-Package natbib Warning: Citation `spyrpt' on page 11 undefined on input line 32
-4.
-
-
-Package natbib Warning: Citation `JR' on page 11 undefined on input line 324.
-
-
-Package natbib Warning: Citation `beaman' on page 11 undefined on input line 32
-4.
-
-
-Package natbib Warning: Citation `hopp' on page 11 undefined on input line 324.
-
-
-
-Package natbib Warning: Citation `srinis' on page 11 undefined on input line 32
-4.
-
-
-Package natbib Warning: Citation `leuk' on page 11 undefined on input line 325.
-
-
-
-Package natbib Warning: Citation `hopp' on page 11 undefined on input line 331.
-
-
-[11
-
-] [12
-
-]
-Chapter 5.
-LaTeX Font Info:    Trying to load font information for T1+cmtt on input line 3
-39.
-(/usr/share/texlive/texmf-dist/tex/latex/base/t1cmtt.fd
-File: t1cmtt.fd 2019/12/16 v2.5j Standard LaTeX font definitions
-) [13] [14
-
-]
-Chapter 6.
-
-Overfull \hbox (4.8249pt too wide) in paragraph at lines 348--354
-\T1/cmr/m/n/10.95 W pracy przed-staw-iono pier-wsz¡ efek-ty-wn¡ im-ple-men-tacj
-¦ bla-bal-iza-tora ró»ni-cowego. Umiej¦t-
- []
-
-
-Overfull \hbox (8.32555pt too wide) in paragraph at lines 348--354
-\T1/cmr/m/n/10.95 podobny przeªom, jak dla in-nych dziedzin wiedzy stanow-iªo o
-gªosze-nie teorii Mikoªaja Kopernika
- []
-
-[15] [16
-
-]
-Appendix A.
-[17] [18
-
-]
-Appendix B.
-[19] [20
-
-]
-Appendix C.
-[21] [22
-
-]
-
-Package natbib Warning: There were undefined citations.
-
-[23] (./pracka.aux) ) 
+] [11] (./pracka.aux) ) 
 Here is how much of TeX's memory you used:
- 1742 strings out of 483075
- 23213 string characters out of 5963834
- 262956 words of memory out of 5000000
- 16782 multiletter control sequences out of 15000+600000
- 555061 words of font info for 71 fonts, out of 8000000 for 9000
+ 1686 strings out of 483075
+ 22140 string characters out of 5963834
+ 263963 words of memory out of 5000000
+ 16738 multiletter control sequences out of 15000+600000
+ 547419 words of font info for 51 fonts, out of 8000000 for 9000
  79 hyphenation exceptions out of 8191
- 33i,8n,31p,451b,295s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappe
-n/ec/ectt1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen
-/ec/ecrm0900.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/
-ec/ecrm0800.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/e
-c/tcrm1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec
-/ecrm0600.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/
-ecsl1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/e
-cti1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
-bx2074.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecb
-x1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
-1200.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1
-200.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx24
-88.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm109
-5.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440
-.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.
-600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.6
-00pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb><
-/usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/s
-hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi12.pfb></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/
-texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-d
-ist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/texmf-dist/font
-s/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/
-public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public
-/amsfonts/cm/cmsy8.pfb>
-Output written on pracka.pdf (25 pages, 257435 bytes).
+ 33i,6n,31p,451b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknap
+pen/ec/ecti1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecbi1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappe
+n/ec/ecbx2074.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen
+/ec/ecbx1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/
+ec/ecrm1200.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/e
+c/ecbx1200.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec
+/ecbx2488.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/
+ecrm1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/e
+cbx1440.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
+rm1728.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecb
+x1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex1
+0.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb>
+</usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/s
+hare/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/te
+xlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr6.pfb></usr/share/texlive/te
+xmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist
+/fonts/type1/public/amsfonts/cm/cmsy10.pfb>
+Output written on pracka.pdf (13 pages, 189940 bytes).
 PDF statistics:
- 704 PDF objects out of 1000 (max. 8388607)
- 148 compressed objects within 2 object streams
+ 476 PDF objects out of 1000 (max. 8388607)
+ 96 compressed objects within 1 object stream
  0 named destinations out of 1000 (max. 500000)
  1 words of extra memory for PDF output out of 10000 (max. 10000000)
 

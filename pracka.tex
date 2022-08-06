@@ -61,7 +61,7 @@
 % (podać tytuł/stopień imię i nazwisko opiekuna
 % Instytut
 % ew. Wydział ew. Uczelnia (jeżeli nie MIM UW))
-\opiekun{dr Piotr Miłoś\\
+\opiekun{dr hab. Piotr Miłoś\\
   Institute of Mathematics, Polish Academy of Sciences\\
   }
 
@@ -96,7 +96,7 @@
 \keywords{time series, machine learning, self-attention model}
 
 % Tu jest dobre miejsce na Twoje własne makra i~środowiska:
-\newtheorem{defi}{Definicja}[section]
+\newtheorem{defi}{Definition}[section]
 
 % koniec definicji
 
@@ -182,259 +182,168 @@ My most important contributions are:
 	\item Time features as in \cite{enhancing} (on the data feeding side)
 \end{enumerate}
 
-\chapter{Podstawowe pojęcia}\label{r:pojecia}
+\chapter{Background}\label{r:background}
 
-Pojęciem pierwotnym blabalii fetorycznej jest \emph{blaba}.
-Blabaliści nie podają jego definicji, mówiąc za Ciach-Pfe t-\=am
-K\^un (fooistyczny mędrzec, XIX w. p.n.e.):
-\begin{quote}
-  Blaba, który jest blaba, nie jest prawdziwym blaba.
+\section{Notation}
 
-\raggedleft\slshape tłum. z~chińskiego Robert Blarbarucki
-\end{quote}
+For a time series represented as a vector $y$, $y^{(i)}_t$ denotes $t$ time step of a series number $i$.
 
-\section{Definicje}
+\section{Time series}
 
-Oto dwie definicje wprowadzające podstawowe pojęcia blabalii
-fetorycznej:
+%\begin{defi}\label{ts}
+%%	\textbf{Time series} is an ordered sequence of datapoints, that were measured at uniform time intervals. We refer to the length of these intervals as time series' \textbf{frequency}.
+%	We define a \textbf{time series} as a sequence of numbers measured across time with a constant \textbf{frequency}.
+%	
+%\end{defi}
+	We define a \textbf{time series} as a sequence of numbers measured across time with a constant \textbf{frequency}.
 
-\begin{defi}\label{skupienie}
-  Silny, zwarty i gotowy fetor bazowy nazwiemy \emph{skupieniem}.
+\section{Causal convolution}
+\begin{defi}\label{ts}
+\textbf{Causal convolution} is a convolution used on input padded with $k - 1$ zeros at the start, where $k$ denotes the size of the kernel.
+	
 \end{defi}
 
-\begin{defi}\label{fetor}
-  \emph{Fetorem} nazwiemy skupienie blaba spełniające następujący
-  \emph{aksjomat reperkusatywności}:
-  $$\forall \mathcal{X}\in Z(t)\ \exists
-  \pi\subseteq\oint_{\Omega^2}\kappa\leftrightarrow 42$$
-\end{defi}
+This type of convolution is particularly useful for time series, since it enables us to make predictions with only partial input, essentially generating a completely new time series.
 
 
-\section{Blabalizator różnicowy}
+\section{Attention}
 
-Teoretycy blabalii (zob. np. pracę~\cite{grglo}) zadowalają się
-niekonstruktywnym opisem natury fetorów.
+Attention is the key part to explaining the way Transformer works. It allows us to train an approximated dictionary which encodes the relations between different parts of the input.
 
-Podstawowym narzędziem blabalii empirycznej jest blabalizator
-różnicowy.  Przyrząd ten pozwala w~sposób przybliżony uzyskać
-współczynniki rozkładu Głombaskiego dla fetorów bazowych
-i~harmonicznych.  Praktyczne znaczenie tego procesu jest oczywiste:
-korzystając z~reperkusatywności pozwala on przejść do przestrzeni
-$\Lambda^{\nabla}$, a~tym samym znaleźć retroizotonalne współczynniki
-semi-quasi-celibatu dla klatek Rozkoszy (zob.~\cite{JR}).
+One needs to provide three matrices to the attention layer: keys, queries and values. They are all created from the input in a way that depends on the attention function.
 
-Klasyczne algorytmy dla blabalizatora różnicowego wykorzystują:
+
+\subsection{Scaled Dot-Product Attention}
+
+Scaled dot-product attention is perhaps the most known kind of attention function, which was introduced in \cite{tr}. Matrices $Q, K, V$ (respectively queries, keys and values) are created by multiplying the input matrix with three distinct weight matrices $W_Q, W_K, W_V$.
+
+For given $Q, K, V$ we compute the attention with the following formula:
+
+$$Attention(Q, K, V) = softmax(\frac{QK^{T}}{\sqrt{d_k}} \cdot M)V \textrm{ (from \cite{enhancing})} $$
+
+where $d_k$ stands for the dimension of $Q$ and $K$. Dividing by this value is supposed to balance out the growth of $Q$ and $K^{T}$ dot product with larger values of $d_k$.
+
+$M$ is a mask matrix with zeros in the upper triangle part and ones in the rest. It prevents the model from attempting to relate the past events to the future ones.
+
+
+The dot-product attention does not use the information about input's general shape, which is a property of the classical Transformer that we call \textbf{context-blindness}. This means that points with similar values can be assigned a strong attention score, even if they come from dissimilar (differently-shaped) events.
+% TODO: moze dopowiedz ze chodzi o softmaxa.
+
+\subsection{Convolutional Attention}
+
+The convolutional attention\cite{enhancing} is calculated in almost the same way as the scaled dot-product attention. 
+It only differs in the way it computes queries and keys.
+Instead of applying a matrix multiplication with weight matrices, it uses a causal convolution with a stride of 1. When the kernel's size is equal to 1 it is equal to the matrix multiplication.
+
+The usage of convolution is supposed to offset the dot-product attention's context-blindness. Since the convolution layer learns to recognize input's shape, stronger attention score should be assigned to similar events.
+
+\subsection{Multi-headed attention}
+
+Each attention block might contain more than one parallel attention layer, aka attention "head". In theory, this allows for different layers to learn other kind of relationships in the input and is a very successful tool e.g. in natural language processing\cite{tr}.
+
+The outputs of all attention heads are concatenated before passing them down to the next block.
+
+
+% jest causal
+
+%\section{Covariates}
+%
+%Following \cite{enhancing}, we use additional variables as part of the model's input aside the time series itself.
+%There are three kinds of covariates we use:
+%\begin{enumerate}
+%	\item Information about time the input was recorded (year, month, day-of-the-week, hour-of-the-day, minute-of-the-hour)
+%	\item ID of the time series
+%	\item Input's distance from the sequence's start
+%\end{enumerate}
+%These variables can contain the information about time the input was recorded (year, month, day-of-the-week, hour-of-the-day, minute-of-the-hour), ID of the time series or the input's distance from the sequence's start.
+
+
+\section{Architecture}
+
+\subsection{Overview}
+
+The Transformer in \cite{enhancing} is a modification of the original Transformer\cite{tr}, that uses only a decoder.
+We follow the same architecture type and therefore whenever we speak about the Transformer we will mean a decoder-only\cite{wikipedia} architecture one.
+
+Our Transformer consists of a causal convolution layer, positional encoding layer, $N$ decoder blocks and a layer normalization.
+
+\subsection{Positional encoding}
+
+Positional encoding is a mapping of each position in the input to a vector.
+A positional encoding layer sums the (embedded) input with its positional encoding matrix.
+
+\subsection{Decoder}
+
+The decoder block consists of a causal attention block and a feed-forward block. Both blocks are residual.
+
+\section{Metrics}
+
+\subsection{Quantile loss}
+
+Quantile loss is a metric designed to evaluate and/or train models designed with quantile prediction in mind.
+We define $\rho$-quantile loss as follows:
+
+$$ QL_\rho(y, \hat{y}) = max(\rho(\hat{y} - y), (\rho - 1)(\hat{y} - y))$$
+
+, where $y$ denotes the model's prediction for the $\rho$ quantile and $\hat{y}$ is the actual value.
+
+This metric is characterized by a stronger penalization of over-predictions for $\rho$ smaller than 0.5, and under-predictions for $\rho$ greater than 0.5.
+
+\subsection{Risk metric}
+
+$Risk_\rho$ is a type of normalized quantile loss metric defined as follows for $\rho \in (0,1)$:
+
+$$ Risk_\rho(\textbf{y}, \hat{\textbf{y}}) 
+= 2\frac{\sum_{i,t}QL_\rho(y^{(i)}_t,\hat{y}^{(i)}_t)}
+{\sum_{i,t} |y^{(i)}_t|}$$
+
+%, where $y^{(i)}_t$ denotes $t$ time step of a series number $i$.
+
+It is very popular in time series prediction papers that use the Transformer (e.g. in \cite{enhancing}, \cite{deepar}), which lead us to choose it as the metric we use in the model's evaluation.
+
+\section{Training}
+
+\subsection{Covariates}
+
+Following \cite{enhancing}, we use additional variables as part of the model's input aside the time series itself.
+There are three kinds of covariates we use:
 \begin{enumerate}
-\item dualizm falowo-korpuskularny, a w szczególności
-  \begin{enumerate}
-  \item korpuskularną naturę fetorów,
-  \item falową naturę blaba,
-  \item falowo-korpuskularną naturę gryzmołów;
-  \end{enumerate}
-\item postępującą gryzmolizację poszczególnych dziedzin nauki, w
-  szczególności badań systemowych i rozcieńczonych;
-\item dynamizm fazowy stetryczenia parajonizacyjnego;
-\item wreszcie tradycyjne opozycje:
-  \begin{itemize}
-  \item duch --- bakteria,
-  \item mieć --- chcieć,
-  \item myśl --- owsianka,
-  \item parafina --- durszlak\footnote{Więcej o tym przypadku --- patrz
-      prace Gryzybór-Głombaskiego i innych teoretyków nurtu
-      teoretyczno-praktycznego badań w~Instytucie Podstawowych
-      Problemów Blabalii w~Fifie.},
-  \item logos --- termos%\footnote{Szpotański}
-  \end{itemize}
-  z właściwym im przedziwym dynamizmem.
+	\item Numerical information about time the input was recorded (year, month, day-of-the-week, hour-of-the-day, minute-of-the-hour). We normalize them and store in one dimension.
+	\item Embedded ID of the time series with the same dimensionality as positional embeddings.
+	\item Input's distance from the sequence's start.
 \end{enumerate}
 
-\begin{figure}[tp]
-  \centering
-  \framebox{\vbox to 4cm{\vfil\hbox to
-      7cm{\hfil\tiny.\hfil}\vfil}}
-  \caption{Artystyczna wizja blaba w~obrazie węgierskiego artysty
-    Josipa~A. Rozkoszy pt.~,,Blaba''}
-\end{figure}
+The input to our model consists of summed ID embeddings and positional embeddings concatenated with rest of the covariates.
 
-\chapter{Wcześniejsze implementacje blabalizatora
-  różnicowego}\label{r:losers}
+%\subsection{Scale handling}
 
-\section{Podejście wprost}
+\subsection{Weighted sampling}
 
-Najprostszym sposobem wykonania blabalizy jest siłowe przeszukanie
-całej przestrzeni rozwiązań.  Jednak, jak łatwo wyliczyć, rozmiar
-przestrzeni rozwiązań rośnie wykładniczo z~liczbą fetorów bazowych.
-Tak więc przegląd wszystkich rozwiązań sprawdza się jedynie dla bardzo
-prostych przestrzeni lamblialnych.  Oznacza to, że taka metoda ma
-niewielkie znaczenie praktyczne --- w~typowym przypadku z~życia trzeba
-rozważać przestrzenie lamblialne wymiaru rzędu 1000.
+We adapt a weighted sampling technique in our training, similarly to \cite{enhancing} and \cite{deepar}. Its main purpose is to counteract model's tendency to underfit data of a large scale, since it occurs more rarely in the datasets. We test that idea by including the weighted versus uniform sampling in our grid searches.
 
-W~literaturze można znaleźć kilka prób opracowania heurystyk dla
-problemu blabalizy (por. \cite{heu}).  Korzystając z~heurystyk daje
-się z~pewnym trudem dokonać blabalizy w~przestrzeni o~np.~500 fetorach
-bazowych.  Należy jednak pamiętać, że heurystyka nie daje gwarancji
-znalezienia najlepszego rozwiązania.  Fifak w~pracy~\cite{ff-sr}
-podaje, jak dla dowolnie zadanej funkcji oceniającej skonstruować
-dane, dla których rozwiązanie wygenerowane przez algorytm heurystyczny
-jest dowolnie odległe od rzeczywistego.
+We calculate the proper weights by normalizing the scale factor $v_i$:
 
-\section{Metody wykorzystujące teorię Głombaskiego}
+$$ v_i = 1 + \frac{\sum^{t_0}_{t=1} y^{(i)}_t}{t_0} $$
 
-Teoria Głombaskiego (zob.~\cite{grglo}) dostarcza eleganckiego
-narzędzia opisu przejścia do przestrzeni $\Lambda^{\nabla}$.
-Wystarczy mianowicie przedstawić fetory bazowe wyjściowej przestrzeni
-lamblialnej w~nieskończonej bazie tak zwanych wyższych aromatów.
-(Formalną definicję tego pojęcia przedstawię w~rozdziale poświęconym
-teorii Fifaka).  Podstawową cechą wyższych aromatów jest ulotność.  To
-zaś oznacza, że odpowiednio dobierając współczynniki przejścia do
-przestrzeni wyższych aromatów można zagwarantować dowolną z~góry
-zadaną dokładność przybliżonego rozwiązania problemu blabalizy.
 
-Oczywiście ze względu na nieskończony wymiar przestrzeni wyższych
-aromatów koszt poszukiwania współczynników blabalizy jest liniowy ze
-względu na wymiar wyjściowej przestrzeni lamblialnej.
+%\begin{defi}
+%	$\rho$-quantile loss
+%\end{defi}
 
-\section{Metody wykorzystujące własności fetorów $\sigma$}
+%We define $\rho$-quantile loss for $\rho \in (0,1)$ as follows:
+%
+%$$ R_\rho(x, ) $$
 
-Najchętniej wykorzystywaną przestrzenią wyższych aromatów jest
-przestrzeń fetorów~$\sigma$.  Fetory $\sigma$ dają szczególnie prostą
-bazę podprzestrzeni widłowej.  Wiąże się to z~faktem, że w~tym przypadku
-fetory harmoniczne wyższych rzędów są pomijalne (rzędu $2^{-t^3}$,
-gdzie $t$ jest wymiarem wyjściowej przestrzeni lamblialnej).
+%\begin{defi}
+%	\textbf{The encoder} is a stack of identical layers. Each layer has two sub-layers.
+%\end{defi}
+%We use a standard "scaled dot-product attention"\cite{tr}.
+%We can define self-attention as a function that takes as an input a query and 
 
-Niestety z~fetorami $\sigma$ wiąże się też przykre ograniczenie: można
-wykazać (zob.~\cite[s. 374]{ff-sr}), że dla dowolnie dobranej bazy
-w~podprzestrzeni widłowej istnieje ograniczenie dolne w~metryce sierpa
-na odległość rzutu dokładnego rozwiązania problemu blabalizy na
-podprzestrzeń widłową.  Ponieważ rzut ten stanowi najlepsze
-przybliżone rozwiązanie, jakie można osiągnąć nie naruszając aksjomatu
-reperkusatywności, więc istnieje pewien nieprzekraczalny próg
-dokładności dla blabalizy wykonanej przez przejście do przestrzeni
-fetorów $\sigma$.  Wartość retroinicjalną tego progu nazywa się
-\textit{reziduum blabicznym}.
 
-\chapter{Teoria fetorów $\sigma$-$\rho$}\label{r:fifak}
+% Causal convolution: https://github.com/christianversloot/machine-learning-articles/blob/main/how-to-use-padding-with-keras.md
 
-Głównym odkryciem Fifaka jest, że fetor suprakowariantny może
-gryzmolizować dowolny ideał w~podprzestrzeni widłowej przestrzeni
-lamblialnej funkcji Rozkoszy.
 
-Udowodnienie tego faktu wymagało wykorzystania twierdzeń pochodzących
-z~kilku niezależnych teorii matematycznych (zob. na przykład:
-\cite{russell,spyrpt,JR,beaman,hopp,srinis}).  Jednym z~filarów
-dowodu jest teoria odwzorowań owalnych Leukocyta (zob.~\cite{leuk}).
-
-Znaczenie twierdzenia Fifaka dla problemu blabalizy polega na tym, że
-znając retroizotonalne współczynniki dla klatek Rozkoszy można
-przeprowadzić fetory bazowe na dwie nieskończone bazy fetorów $\sigma$
-w~przestrzeni $K_7$ i~fetorów $\rho$ w~odpowiedniej
-quasi-quasi-przestrzeni równoległej (zob.~\cite{hopp}).  Zasadnicza
-różnica w~stosunku do innych metod blabalizy polega na tym, że
-przedstawienie to jest dokładne.
-
-\chapter{Dokumentacja użytkowa i~opis implementacji}\label{r:impl}
-
-Program przygotowany dla systemu operacyjnego M\$ Windows uruchamia
-się energicznym dwumlaskiem na jego ikonce w~folderze
-\verb+\\FIDO\FOO\BLABA+.  Następnie kolistym ruchem ręki należy
-naprowadzić kursor na menu \texttt{Blabaliza} i~uaktywnić pozycję
-\texttt{Otwórz plik}.  Po wybraniu pliku i~zatwierdzeniu wyboru
-przyciskiem \texttt{OK} rozpocznie się proces blabalizy.  Wyniki
-zostaną zapisane w~pliku o~nazwie \texttt{99-1a.tx.43} w~bieżącym
-folderze.
-
-\chapter{Podsumowanie}
-
-W~pracy przedstawiono pierwszą efektywną implementację blabalizatora
-różnicowego.  Umiejętność wykonania blabalizy numerycznej dla danych
-,,z życia'' stanowi dla blabalii fetorycznej podobny przełom, jak dla
-innych dziedzin wiedzy stanowiło ogłoszenie teorii Mikołaja Kopernika
-i~Gryzybór Głombaskiego.  Z~pewnością w~rozpocznynającym się XXI wieku
-będziemy obserwować rozkwit blabalii fetorycznej.
-
-Trudno przewidzieć wszystkie nowe możliwości, ale te co bardziej
-oczywiste można wskazać już teraz.  Są to:
-\begin{itemize}
-\item degryzmolizacja wieńców telecentrycznych,
-\item realizacja zimnej reakcji lambliarnej,
-\item loty celulityczne,
-\item dokładne obliczenie wieku Wszechświata.
-\end{itemize}
-
-\section{Perspektywy wykorzystania w~przemyśle}
-
-Ze względu na znaczenie strategiczne wyników pracy ten punkt uległ
-utajnieniu.
-
-\appendix
-
-\chapter{Główna pętla programu zapisana w~języku T\=oFoo}
-
-\begin{verbatim}
-[[foo]{,}[[a3,(([(,),{[[]]}]),
-  [1; [{,13},[[[11],11],231]]].
-  [13;[!xz]].
-  [42;[{,x},[[2],{'a'},14]]].
-  [br;[XQ*10]].
- ), 2q, for, [1,]2, [..].[7]{x}],[(((,[[1{{123,},},;.112]],
-        else 42;
-   . 'b'.. '9', [[13141],{13414}], 11),
- [1; [[134,sigma],22]].
- [2; [[rho,-],11]].
- )[14].
- ), {1234}],]. [map [cc], 1, 22]. [rho x 1]. {22; [22]},
-       dd.
- [11; sigma].
-        ss.4.c.q.42.b.ll.ls.chmod.aux.rm.foo;
- [112.34; rho];
-        001110101010101010101010101010101111101001@
- [22%f4].
- cq. rep. else 7;
- ]. hlt
-\end{verbatim}
-
-\chapter{Przykładowe dane wejściowe algorytmu}
-
-\begin{center}
-  \begin{tabular}{rrr}
-    $\alpha$ & $\beta$ & $\gamma_7$ \\
-    901384 & 13784 & 1341\\
-    68746546 & 13498& 09165\\
-    918324719& 1789 & 1310 \\
-    9089 & 91032874& 1873 \\
-    1 & 9187 & 19032874193 \\
-    90143 & 01938 & 0193284 \\
-    309132 & $-1349$ & $-149089088$ \\
-    0202122 & 1234132 & 918324098 \\
-    11234 & $-109234$ & 1934 \\
-  \end{tabular}
-\end{center}
-
-\chapter{Przykładowe wyniki blabalizy
-    (ze~współczynnikami~$\sigma$-$\rho$)}
-
-\begin{center}
-  \begin{tabular}{lrrrr}
-    & Współczynniki \\
-    & Głombaskiego & $\rho$ & $\sigma$ & $\sigma$-$\rho$\\
-    $\gamma_{0}$ & 1,331 & 2,01 & 13,42 & 0,01 \\
-    $\gamma_{1}$ & 1,331 & 113,01 & 13,42 & 0,01 \\
-    $\gamma_{2}$ & 1,332 & 0,01 & 13,42 & 0,01 \\
-    $\gamma_{3}$ & 1,331 & 51,01 & 13,42 & 0,01 \\
-    $\gamma_{4}$ & 1,332 & 3165,01 & 13,42 & 0,01 \\
-    $\gamma_{5}$ & 1,331 & 1,01 & 13,42 & 0,01 \\
-    $\gamma_{6}$ & 1,330 & 0,01 & 13,42 & 0,01 \\
-    $\gamma_{7}$ & 1,331 & 16435,01 & 13,42 & 0,01 \\
-    $\gamma_{8}$ & 1,332 & 865336,01 & 13,42 & 0,01 \\
-    $\gamma_{9}$ & 1,331 & 34,01 & 13,42 & 0,01 \\
-%    $\gamma_{10}$ & 1,332 & 7891432,01 & 13,42 & 0,01 \\
-    $\gamma_{11}$ & 1,331 & 8913,01 & 13,42 & 0,01 \\
-    $\gamma_{12}$ & 1,331 & 13,01 & 13,42 & 0,01 \\
-    $\gamma_{13}$ & 1,334 & 789,01 & 13,42 & 0,01 \\
-    $\gamma_{14}$ & 1,331 & 4897453,01 & 13,42 & 0,01 \\
-    $\gamma_{15}$ & 1,329 & 783591,01 & 13,42 & 0,01 \\
-  \end{tabular}
-\end{center}
 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliografia}
@@ -464,6 +373,11 @@ utajnieniu.
 
 \bibitem{tr} Ashish Vaswani, Noam Shazeer, Niki Parmar, Jakob Uszkoreit, Llion Jones, Aidan N Gomez, Łukasz
 Kaiser, and Illia Polosukhin. \textit{Attention is all you need}. NIPS 2017.
+
+\bibitem{wikipedia} Peter J Liu, Mohammad Saleh, Etienne Pot, Ben Goodrich, Ryan Sepassi, Lukasz Kaiser, and Noam
+Shazeer. \textit{Generating wikipedia by summarizing long sequences}. arXiv preprint arXiv:1801.10198, 2018.
+
+\bibitem{deepar} Valentin Flunkert, David Salinas, and Jan Gasthaus. \textit{Deepar: Probabilistic forecasting with autoregressive recurrent networks}. arXiv preprint arXiv:1704.04110, 2017.
 
 %\bibitem[Blar16]{eb1} Elizjusz Blarbarucki, \textit{O pewnych
 %    aspektach pewnych aspektów}, Astrolog Polski, Zeszyt 16, Warszawa
