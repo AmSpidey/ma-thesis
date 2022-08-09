@@ -14,7 +14,11 @@
 
 % dodaj opcję [licencjacka] dla pracy licencjackiej
 % dodaj opcję [en] dla wersji angielskiej (mogą być obie: [licencjacka,en])
+
 \documentclass[en]{pracamgr}
+
+\usepackage{amsmath}
+
 
 %% Imports the package natbib
 \usepackage[square,numbers]{natbib}
@@ -139,10 +143,10 @@ It is one of the most widespread type of data, making its forecasting incredibly
 It is not hard to imagine that this wide usage brought time series a lot of attention in the past. One of the most widely known method for their forecasting is ARIMA (autoregressive integrated moving average). Despite its popularity, it comes with some disadvantages, like the necessity to fit it separately for every similar time series and for the user to have some expertise in the parameter selection procedure.
 
 This brings us to the next era of the time series forecasting: deep neural networks.
-The achievements in the natural language processing (NLP) field, including RNN and Transformer self-attention models have almost directly transferred to time series, due to a strikingly similar nature of both problems. However, RNNs and their successors (LSTM\cite{lstm}, GRU\cite{gru}) have difficulty with long sequences\cite{context}, causing them to struggle with time series that can contain long-term dependencies.
+The achievements in the natural language processing (NLP) field, including RNN and Transformer self-attention models have almost directly transferred to time series, due to a strikingly similar nature of both problems. However, RNNs and their successors (LSTM \cite{lstm}, GRU \cite{gru}) have difficulty with long sequences \cite{context}, causing them to struggle with time series that can contain long-term dependencies.
 
 
-Transformer's\cite{tr} self-attention has revolutionized the world of long sequence processing, making it possible for the model to deal with larger-scale forecasting. However, there are several problems with integrating it directly for the time series forecasting usage: its local context-blindness\cite{enhancing} and large space-complexity growing quadratically with the sequence length.
+Transformer's self-attention \cite{tr} has revolutionized the world of long sequence processing, making it possible for the model to deal with larger-scale forecasting. However, there are several problems with integrating it directly for the time series forecasting usage: its local context-blindness \cite{enhancing} and large space-complexity growing quadratically with the sequence length.
 %While self-attention is quite space-consuming (its complexity grows quadratically with sequence length [SOURCE, POSSIBLY FROM ENHANCING]), several solutions were proposed to make its usage feasible for capturing long-term dependencies.
 One solution was proposed in \cite{enhancing} by introducing convolutional self-attention and LogSparse Transformer.
 
@@ -219,7 +223,7 @@ Scaled dot-product attention is perhaps the most known kind of attention functio
 
 For given $Q, K, V$ we compute the attention with the following formula:
 
-$$Attention(Q, K, V) = softmax(\frac{QK^{T}}{\sqrt{d_k}} \cdot M)V \textrm{ (from \cite{enhancing})} $$
+$$ Attention(Q, K, V) = softmax(\frac{QK^{T}}{\sqrt{d_k}} \cdot M)V \textrm{ (from \cite{enhancing})} $$
 
 where $d_k$ stands for the dimension of $Q$ and $K$. Dividing by this value is supposed to balance out the growth of $Q$ and $K^{T}$ dot product with larger values of $d_k$.
 
@@ -231,7 +235,7 @@ The dot-product attention does not use the information about input's general sha
 
 \subsection{Convolutional Attention}
 
-The convolutional attention\cite{enhancing} is calculated in almost the same way as the scaled dot-product attention. 
+The convolutional attention \cite{enhancing} is calculated in almost the same way as the scaled dot-product attention. 
 It only differs in the way it computes queries and keys.
 Instead of applying a matrix multiplication with weight matrices, it uses a causal convolution with a stride of 1. When the kernel's size is equal to 1 it is equal to the matrix multiplication.
 
@@ -239,7 +243,7 @@ The usage of convolution is supposed to offset the dot-product attention's conte
 
 \subsection{Multi-headed attention}
 
-Each attention block might contain more than one parallel attention layer, aka attention "head". In theory, this allows for different layers to learn other kind of relationships in the input and is a very successful tool e.g. in natural language processing\cite{tr}.
+Each attention block might contain more than one parallel attention layer, aka attention "head". In theory this allows for different layers to learn other kind of relationships in the input and is a very successful tool e.g. in natural language processing \cite{tr}.
 
 The outputs of all attention heads are concatenated before passing them down to the next block.
 
@@ -262,8 +266,8 @@ The outputs of all attention heads are concatenated before passing them down to 
 
 \subsection{Overview}
 
-The Transformer in \cite{enhancing} is a modification of the original Transformer\cite{tr}, that uses only a decoder.
-We follow the same architecture type and therefore whenever we speak about the Transformer we will mean a decoder-only\cite{wikipedia} architecture one.
+The Transformer in \cite{enhancing} is a modification of the original Transformer \cite{tr}, that uses only a decoder.
+We follow the same architecture type and therefore whenever we speak about the Transformer we will mean a decoder-only \cite{wikipedia} architecture one.
 
 Our Transformer consists of a causal convolution layer, positional encoding layer, $N$ decoder blocks and a layer normalization.
 
@@ -283,9 +287,9 @@ The decoder block consists of a causal attention block and a feed-forward block.
 Quantile loss is a metric designed to evaluate and/or train models designed with quantile prediction in mind.
 We define $\rho$-quantile loss as follows:
 
-$$ QL_\rho(y, \hat{y}) = max(\rho(\hat{y} - y), (\rho - 1)(\hat{y} - y))$$
+$$ QL_\rho(y, \hat{y}) = max(\rho(y - \hat{y}), (\rho - 1)(y - \hat{y})) \text{,} $$
 
-, where $y$ denotes the model's prediction for the $\rho$ quantile and $\hat{y}$ is the actual value.
+where $y$ denotes the model's prediction for the $\rho$ quantile and $\hat{y}$ is the ground truth value.
 
 This metric is characterized by a stronger penalization of over-predictions for $\rho$ smaller than 0.5, and under-predictions for $\rho$ greater than 0.5.
 
@@ -321,7 +325,7 @@ The input to our model consists of summed ID embeddings and positional embedding
 
 We adapt a weighted sampling technique in our training, similarly to \cite{enhancing} and \cite{deepar}. Its main purpose is to counteract model's tendency to underfit data of a large scale, since it occurs more rarely in the datasets. We test that idea by including the weighted versus uniform sampling in our grid searches.
 
-We calculate the proper weights by normalizing the scale factor $v_i$:
+We calculate the weights by normalizing the scale factor $v_i$:
 
 $$ v_i = 1 + \frac{\sum^{t_0}_{t=1} y^{(i)}_t}{t_0} $$
 
