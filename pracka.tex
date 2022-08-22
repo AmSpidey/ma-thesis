@@ -18,10 +18,15 @@
 \documentclass[en]{pracamgr}
 
 \usepackage{amsmath}
+\usepackage{amsfonts} 
 
 
 %% Imports the package natbib
 \usepackage[square,numbers]{natbib}
+\usepackage{xcolor}
+\usepackage{graphicx}
+
+
 
 %% Sets the bibliography style
 \bibliographystyle{abbrvnat}
@@ -65,11 +70,11 @@
 % (podać tytuł/stopień imię i nazwisko opiekuna
 % Instytut
 % ew. Wydział ew. Uczelnia (jeżeli nie MIM UW))
-\opiekun{dr hab. Piotr Miłoś\\
+\copiekun{dr hab. Piotr Miłoś\\
   Institute of Mathematics, Polish Academy of Sciences\\
   }
 
-\copiekun{dr hab. Marek Cygan, prof. UW\\
+\opiekun{dr hab. Marek Cygan, prof. UW\\
 	University of Warsaw\\
 }
 
@@ -101,6 +106,9 @@
 
 % Tu jest dobre miejsce na Twoje własne makra i~środowiska:
 \newtheorem{defi}{Definition}[section]
+\newcommand{\pk}[1]{\textcolor{red}{\small [pk: #1]}}
+\newcommand{\mn}[1]{\textcolor{purple}{\small [mn: #1]}}
+
 
 % koniec definicji
 
@@ -120,42 +128,25 @@
 %\addcontentsline{toc}{chapter}{Time series and their importance}
 \section{Time series and their importance}\label{r:tsi}
 
-% retail forecasting (supply, demand)
-% analiza danych giełdowych
-% Time series forecasting occurs when you make scientific predictions based on historical time stamped data. It
-% Time series forecasting is considered one of the most applied data science techniques that are used in different industries such as finance, supply chain management, production, and inventory planning. 
-% Stock prices forecasting, weather forecasting, business planning, resource allocation are only a few of the many possible applications for time series forecasting.
+Forecasting future values and their probability distribution on the basis of historical datapoints is one of the most prevalent problems in both industry and research.
+For example, time series analysis can be used for predicting the number of ride-hailing trips completed during special events like holidays (\cite{uber}), but also for estimating stock market behavior (\cite{stock1}) and solving resource allocation tasks (\cite{graph-forecast}). 
 
-Time series is a sequence of data points measured across time with a fixed frequency.
-It is one of the most widespread type of data, making its forecasting incredibly useful for vast industries and research areas. Among others they are being used for stock market analysis, weather prediction and resource allocation planning.
-
-% w ehancing: "Although
-%still widely used, traditional time series forecasting models, such as State Space Models (SSMs) [2]
-%and Autoregressive (AR) models, are designed to fit each time series independently. Besides, they
-%also require practitioners’ expertise in manually selecting trend, seasonality and other components.
-%To sum up, these two major weaknesses have greatly hindered their applications in the modern
-%large-scale time series forecasting tasks"
-% One of the most prominent models is ARIMA [15]. Its statistical properties as well as the wellknown Box-Jenkins methodology [16] in the model selection procedure make it the first attempt for
-%practitioners. However, its linear assumption and limited scalability make it unsuitable for large-scale
-%forecasting tasks. Further, information across similar time series cannot be shared since each time
-%series is fitted individually.
-
-It is not hard to imagine that this wide usage brought time series a lot of attention in the past. One of the most widely known method for their forecasting is ARIMA (autoregressive integrated moving average). Despite its popularity, it comes with some disadvantages, like the necessity to fit it separately for every similar time series and for the user to have some expertise in the parameter selection procedure.
-
-This brings us to the next era of the time series forecasting: deep neural networks.
-The achievements in the natural language processing (NLP) field, including RNN and Transformer self-attention models have almost directly transferred to time series, due to a strikingly similar nature of both problems. However, RNNs and their successors (LSTM \cite{lstm}, GRU \cite{gru}) have difficulty with long sequences \cite{context}, causing them to struggle with time series that can contain long-term dependencies.
+This wide usage brought time series a lot of attention in the past. One of the most known methods for their forecasting are based on Box-Jenkins method like the ARIMA (autoregressive integrated moving average) \cite{arima} model, but there also exist ones using the exponential smoothing techniques and state space models \cite{ssm}. Despite their popularity, they come with some fundamental disadvantages. For example, they need to be fit separately for every similar sequence (\cite{enhancing}, \cite{deepar}) and cannot be trained to recognize these similarities which makes using them time-inefficient in the long term.
+Furthermore, these models typically use parameters that have to be handpicked by the user (\cite{enhancing},
+\cite{deepar}), which makes them more suitable for field experts with knowledge of both parameter selection procedure and preferably time series' behavior.
 
 
-Transformer's self-attention \cite{tr} has revolutionized the world of long sequence processing, making it possible for the model to deal with larger-scale forecasting. However, there are several problems with integrating it directly for the time series forecasting usage: its local context-blindness \cite{enhancing} and large space-complexity growing quadratically with the sequence length.
-%While self-attention is quite space-consuming (its complexity grows quadratically with sequence length [SOURCE, POSSIBLY FROM ENHANCING]), several solutions were proposed to make its usage feasible for capturing long-term dependencies.
-One solution was proposed in \cite{enhancing} by introducing convolutional self-attention and LogSparse Transformer.
+The aforementioned issues are not a problem for deep neural networks, since they can be trained to recognize a group of similar time series and their hyper-parameters have to be only selected once for the training and not at the prediction time. What is more, once trained neural network can be adapted to new data using transfer learning. 
+
+On top of that, neural networks proved to be very successful in other fields, including natural language translation, which is a problem with similar properties to the time series forecasting. In particular, the translation can be defined as a mapping of one sequence to a second one, similarly to how one can map historical values to the future ones. Thus, the achievements of natural language processing (NLP) field, including RNN models have almost directly transferred to the time series forecasting. However, RNNs and their successors (LSTM \cite{lstm}, GRU \cite{gru}) have difficulty with long sequences \cite{context}, causing them to struggle with time series that can contain long-term dependencies.
+
+The next important step in the development of deep neural network adaptations for the time series forecasting was the Transformer \cite{tr}. Instead of using recurrent networks it relies almost entirely on the self-attention mechanism, which can be trained to estimate dependencies in arbitrarily long sequences, making it possible for the model to deal with larger-scale forecasting.
+However, there are several problems with integrating it directly for the time series forecasting usage. One of them is that the scaled dot-product attention can only capture dependencies between particular data points, but it cannot learn the time series' shape, which makes it struggle with capturing its seasonality and other patterns or anomalies (\cite{enhancing}). The second important issue is that its space complexity grows quadratically with the sequence length, making it difficult to train larger Transformer models on long time series (\cite{enhancing}).
+One solution to these problems was proposed in \cite{enhancing} by introducing convolutional self-attention and LogSparse Transformer.
 
 
 
 
-% TODO:  However, canonical dot-product
-%self-attention matches queries against keys insensitive to local context,
-% OGARNIJ O CO CHODZI.
 
 %Time series forecasting is one of the most widespread type of data analysis, making it incredibly useful for various industries and research areas.
 %It is
@@ -164,10 +155,10 @@ One solution was proposed in \cite{enhancing} by introducing convolutional self-
 
 \section{Problem statement}\label{r:problemst}
 
-Transformer proposed in \cite{enhancing} is centered around the idea of every point in a time series being drawn from some Gaussian distribution. Thus, the model's goal is to predict the parameters of these distributions, ensuring that each prediction is partially random and introducing Gaussian noise to it.
+Transformer proposed in \cite{enhancing} is centered around the idea of every point in a time series being drawn from some Gaussian distribution. Thus, the model's goal is to predict the parameters of these distributions, thus ensuring that each prediction is partially random and introducing Gaussian noise to it. \pk{formally?} \mn{I wanted to leave the formal definitions for the background, is that ok?}
 
-In reality, it's not always the case that every time series' noise comes from a Gaussian distribution.
-It would be more useful if we could model any continuous distribution instead. One way to approximate it is by using a discrete distribution with categories that are granular enough. Obviously, this comes with a disadvantage of being able to predict only a discretely limited value, which could cost some accuracy. However, the expectation is that this problem can be solved easily by just using a sufficiently large number of categories.
+In reality, as we show later in this work, not every time series' noise comes from a Gaussian distribution. \pk{examples? preferably with pictures} \mn{I'd probably leave it for later sections before our results or get back here if I find it's more appropriate here}
+It would be more useful if we could model any continuous distribution instead. One way to approximate it is by using a discrete distribution with categories that are granular enough. Obviously, this comes with a disadvantage of the model being able to predict only a discretely limited value, which could cost some accuracy. However, the expectation is that this problem can be solved easily by just using a sufficiently large number of categories.
 
 The goal of our project was using the Transformer model to predict time series assuming that each point in the sequences belongs to a categorical distribution.
 
@@ -188,136 +179,131 @@ My most important contributions are:
 
 \chapter{Background}\label{r:background}
 
-\section{Notation}
+\section{Time series and notation}
 
-For a time series represented as a vector $y$, $y^{(i)}_t$ denotes $t$ time step of a series number $i$.
+We define time series as sequence of real numbers measured across time with a constant \textbf{frequency}. Frequency is defined in time units, e.g. weeks, days, hours. For multiple time series represented as a matrix $y$, where each row is a separate time series, $y^{(i)}_t$ denotes $t$ time step of a series number $i$.
 
-\section{Time series}
+One can extend the definition above to a sequence of any data type, but it is not necessary for the datasets that we use for this thesis.
 
-%\begin{defi}\label{ts}
-%%	\textbf{Time series} is an ordered sequence of datapoints, that were measured at uniform time intervals. We refer to the length of these intervals as time series' \textbf{frequency}.
-%	We define a \textbf{time series} as a sequence of numbers measured across time with a constant \textbf{frequency}.
-%	
-%\end{defi}
-	We define a \textbf{time series} as a sequence of numbers measured across time with a constant \textbf{frequency}.
+%\section{Convolution}
+%
+%\subsection{Convolutional layer}
+%
+%Convolutional layer is a neural networks' layer that allows to downsize the input and at the same time effectively learn its characteristics.
+%
+%This layer consists of multiple trainable matrices named \textbf{kernels} with a dimension size that is usually much smaller from the input's.
+%Their purpose is to progressively slide over the input, calculating the scalar product between the input's slice and the kernel.
+%% with jumps of constant length (\textbf{stride})
 
-\section{Causal convolution}
-\begin{defi}\label{ts}
-\textbf{Causal convolution} is a convolution used on input padded with $k - 1$ zeros at the start, where $k$ denotes the size of the kernel.
-	
-\end{defi}
+\section{Transformer model architecture}
 
-This type of convolution is particularly useful for time series, since it enables us to make predictions with only partial input, essentially generating a completely new time series.
+Transformer \cite{tr} is a deep neural network model that relies on a scaled dot-product attention mechanism introduced in the same paper. There exist some modifications to the model presented in \cite{tr}, but we follow the "decoder-only" \cite{wikipedia} architecture type.
 
+\subsection{Overview}
+
+\begin{figure}[ht!]
+	\centering
+	\includegraphics[height=130mm]{decoder3.png}
+	\caption{Transformer's architecture. The dotted lines represent residual connections. \label{our-decoder}}
+\end{figure}
+
+%The Transformer in \cite{enhancing} is a modification of the original Transformer \pk{what is the original Transformer?} \cite{tr}, that uses only a decoder. \pk{what is a decoder?}
+%We follow the same architecture type and therefore whenever we speak \pk{you don't speak} about the Transformer we will mean a decoder-only \cite{wikipedia} architecture one.
+
+Our implementation of the Transformer model consists mainly of a causal convolution layer, positional encoding layer, $N$ identical decoder layers, layer normalization and a fully-connected layer. 
+Most of the layers' outputs have $d_{model}$ dimension.
+I present the general architecture on Figure ~\ref{our-decoder}.
+
+\textbf{Positional encoding} allows us to feed the model embedded information about how the data points are ordered in the inputted time series.
+We use a trainable embeddings for the positional encodings and add it to the input before it reaches the first decoder layer. \pk{???} \mn{I changed it a little, but I am not sure whether it is still confusing.}
+
+A single \textbf{decoder} layer consists of a causal attention sub-layer and a feed-forward sub-layer:
+\begin{itemize}
+	\item The feed-forward sub-layer contains a simple feed-forward neural network with two dense layers and a ReLU activation in-between.
+	\item The causal attention sub-layer contains the attention mechanism that I describe later on.
+\end{itemize}
+
+Both sub-layers are residual and wrapped with a layer normalization and a dropout layer.
 
 \section{Attention}
 
-Attention is the key part to explaining the way Transformer works. It allows us to train an approximated dictionary which encodes the relations between different parts of the input.
-
-One needs to provide three matrices to the attention layer: keys, queries and values. They are all created from the input in a way that depends on the attention function.
-
-
 \subsection{Scaled Dot-Product Attention}
 
-Scaled dot-product attention is perhaps the most known kind of attention function, which was introduced in \cite{tr}. Matrices $Q, K, V$ (respectively queries, keys and values) are created by multiplying the input matrix with three distinct weight matrices $W_Q, W_K, W_V$.
+Attention is the key part to explaining how the Transformer works.
+It enables us to train the neural network to encode the relations between different parts of the input (e.g., a time series' data points).
+
+
+%It allows us to train an approximated dictionary which encodes the relations between different parts of the input.
+%
+%One needs to provide three matrices to the attention layer: keys, queries and values. They are all created from the input in a way that depends on the attention function.
+
+Scaled dot-product attention introduced along with the Transformer architecture in \cite{tr} is perhaps the most known kind of attention function.
+To calculate the attention score vector between one data point and all that come after, one first needs to provide a query vector for the first data point and a set of vector pairs consisting of keys and values for all the other data points. We match our query against all of the keys by a dot product and use the softmax function to normalize the result. Finally, by multiplying the softmax results with the corresponding values we get a set of weighted values vectors. After summing them we get the attention score vector for one data point.
+
+One can informally see these calculations as operations on a neural network-approximated dictionary, where each key corresponds to a certain value and we treat the dot operation between the query and keys as a measure of similarity. When they are orthogonal, the dot product will be equal to 0. On the other hand, for vectors of fixed length the dot product is maximal when they have the same direction. When the result of softmax is large between two data points, we can informally say that the attention relates these two points.
+\newline
+
+In reality we do not need to calculate the attention sequentially for every data point, but rather use matrix operations.
+One needs to provide three matrices to the attention layer: $Q, K \in \mathbb{R}^{d_I \times d_k}, V \in \mathbb{R}^{d_I \times d_v}$ (respectively called queries, keys and values). They are created by multiplying the input matrix $I \in \mathbb{R}^{d_I \times d_{model}}$ with three distinct trainable weight matrices $W_Q \in \mathbb{R}^{d_{model} \times d_k}, W_K \in \mathbb{R}^{d_{model} \times d_k}, W_V \in \mathbb{R}^{d_{model} \times d_v}$.
 
 For given $Q, K, V$ we compute the attention with the following formula:
 
 $$ Attention(Q, K, V) = softmax(\frac{QK^{T}}{\sqrt{d_k}} \cdot M)V \textrm{ (from \cite{enhancing})} $$
 
-where $d_k$ stands for the dimension of $Q$ and $K$. Dividing by this value is supposed to balance out the growth of $Q$ and $K^{T}$ dot product with larger values of $d_k$.
+\pk{a picture is worth a thousand words} \mn{I think here maybe it's worth adding some words, since I did not talk a lot about the informal understanding of attention. Above I added some paragraphs about how to calculate and understand it. If I were to add a picture, maybe the one from the paper (Figure 2 in Attention...)? But I think this formula is very short anyways.}
 
-$M$ is a mask matrix with zeros in the upper triangle part and ones in the rest. It prevents the model from attempting to relate the past events to the future ones.
+where $d_k$ stands for the dimension of $Q$ and $K$. Dividing by its square root is supposed to balance out the growth of $Q$ and $K^{T}$ dot product that occurs with larger values of $d_k$.
+
+$M$ is a \textbf{mask matrix} that sets all the elements corresponding to connections between future and past (upper triangular) to $-\infty$. It prevents the model from attempting to relate the past events to the future ones. \pk{show the matrix} \mn{I fixed it right now, since I see I was wrong before of how it should look like. Not sure whether you'd still want me to show it, since it should be one of the simplest matrices spoken about here. WDYT?}
 
 
-The dot-product attention does not use the information about input's general shape, which is a property of the classical Transformer that we call \textbf{context-blindness}. This means that points with similar values can be assigned a strong attention score, even if they come from dissimilar (differently-shaped) events.
-% TODO: moze dopowiedz ze chodzi o softmaxa.
+%One might informally understand the attention as a way to train a neural network dictionary, where 
+
+
+While calculating the softmax score for any two data points in a time series, the scaled dot-product attention does not use any information about other data points. We call this property \textbf{context-blindness}. Sometimes this might lead the model to assigning strong attention score between events that have similar values, even if their contexts (neighboring data points) are very different. That might cause the model to incorrectly recognize patterns in the time series (\cite{enhancing}).
 
 \subsection{Convolutional Attention}
+
+%\subsection{Causal convolution} \pk{what is convolution? a good place for some pictures}
+\begin{defi}\label{ts}
+	\textbf{Causal convolution} is a convolution used on input padded with $k - 1$ zeros at the start, where $k$ denotes the size of the kernel.
+	
+\end{defi}
+%
+This type of convolution is particularly useful for time series, since it enables us to make predictions with only partial input, essentially generating a completely new time series.
+\newline
 
 The convolutional attention \cite{enhancing} is calculated in almost the same way as the scaled dot-product attention. 
 It only differs in the way it computes queries and keys.
 Instead of applying a matrix multiplication with weight matrices, it uses a causal convolution with a stride of 1. When the kernel's size is equal to 1 it is equal to the matrix multiplication.
 
-The usage of convolution is supposed to offset the dot-product attention's context-blindness. Since the convolution layer learns to recognize input's shape, stronger attention score should be assigned to similar events.
+The usage of convolution is supposed to offset the dot-product attention's context-blindness. Since the convolution layer learns to recognize input's context, stronger attention score should be assigned to similar events.
 
 \subsection{Multi-headed attention}
 
-Each attention block might contain more than one parallel attention layer, aka attention "head". In theory this allows for different layers to learn other kind of relationships in the input and is a very successful tool e.g. in natural language processing \cite{tr}.
+Each attention block might contain more than one parallel attention layer, aka attention "head". In theory this allows for different layers to learn various kinds of relationships in the input and is a very successful tool e.g. in natural language processing \cite{tr}.
 
-The outputs of all attention heads are concatenated before passing them down to the next block.
+The outputs of all $h$ attention heads are concatenated and multiplied by a weight matrix $W^O \in \mathbb{R}^{hd_{v} \times d_{model}}$ to squeeze them back into $d_I \times d_{model}$ shape before passing them to the next layer.
 
-
-% jest causal
-
-%\section{Covariates}
-%
-%Following \cite{enhancing}, we use additional variables as part of the model's input aside the time series itself.
-%There are three kinds of covariates we use:
-%\begin{enumerate}
-%	\item Information about time the input was recorded (year, month, day-of-the-week, hour-of-the-day, minute-of-the-hour)
-%	\item ID of the time series
-%	\item Input's distance from the sequence's start
-%\end{enumerate}
-%These variables can contain the information about time the input was recorded (year, month, day-of-the-week, hour-of-the-day, minute-of-the-hour), ID of the time series or the input's distance from the sequence's start.
-
-
-\section{Architecture}
-
-\subsection{Overview}
-
-The Transformer in \cite{enhancing} is a modification of the original Transformer \cite{tr}, that uses only a decoder.
-We follow the same architecture type and therefore whenever we speak about the Transformer we will mean a decoder-only \cite{wikipedia} architecture one.
-
-Our Transformer consists of a causal convolution layer, positional encoding layer, $N$ decoder blocks, layer normalization and a fully-connected layer.
-
-\subsection{Positional encoding}
-
-Positional encoding is a mapping of each position in the input to a vector.
-A positional encoding layer sums the (embedded) input with its positional encoding matrix.
-
-\subsection{Decoder}
-
-The decoder block consists of a causal attention block and a feed-forward block. Both blocks are residual.
-
-\section{Metrics}
-
-\subsection{Quantile loss}
-
-Quantile loss is a metric designed to evaluate and/or train models designed with quantile prediction in mind.
-We define $\rho$-quantile loss as follows:
-
-$$ QL_\rho(y, \hat{y}) = max(\rho(y - \hat{y}), (\rho - 1)(y - \hat{y})) \text{,} $$
-
-where $y$ denotes the model's prediction for the $\rho$ quantile and $\hat{y}$ is the ground truth value.
-
-This metric is characterized by a stronger penalization of over-predictions for $\rho$ smaller than 0.5, and under-predictions for $\rho$ greater than 0.5.
-
-\subsection{Risk metric}
-
-$Risk_\rho$ is a type of normalized quantile loss metric defined as follows for $\rho \in (0,1)$:
-
-$$ Risk_\rho(\textbf{y}, \hat{\textbf{y}}) 
-= 2\frac{\sum_{i,t}QL_\rho(y^{(i)}_t,\hat{y}^{(i)}_t)}
-{\sum_{i,t} |y^{(i)}_t|}$$
-
-%, where $y^{(i)}_t$ denotes $t$ time step of a series number $i$.
-
-It is very popular in time series prediction papers that use the Transformer (e.g. in \cite{enhancing}, \cite{deepar}), which lead us to choose it as the metric we use in the model's evaluation.
+To offset the additional computational cost related with multiple attention heads, we set $d_k$ and $d_v$ to $d_{model} / h$.
 
 \section{Training}
 
-\subsection{Covariates}
+\subsection{Additional input} \pk{what is a covariate?} \mn{I changed the name since it's not really necessary to call these covariates.}
 
 Following \cite{enhancing}, we use additional variables as part of the model's input aside the time series itself.
-There are three kinds of covariates we use:
+There are three kinds of additional input we use:
 \begin{enumerate}
-	\item Numerical information about time the input was recorded (year, month, day-of-the-week, hour-of-the-day, minute-of-the-hour). We normalize them and store in one dimension.
-	\item Embedded ID of the time series with the same dimensionality as positional embeddings.
-	\item Input's distance from the sequence's start.
+	\item Numerical information about time the input was recorded (year, month, day-of-the-week, hour-of-the-day, minute-of-the-hour). 
+	%We normalize them and store in one dimension.
+	\item Identifier of the time series.
+	%Embedded identifier of the time series with the same dimensionality as positional embeddings.
+	\item Input's distance from the sequence's start. 
+	%We normalize them in the same way as the time input.
 \end{enumerate}
-
-The input to our model consists of summed ID embeddings and positional embeddings concatenated with rest of the covariates.
+We embed all of the additional variables to the same dimension, sum those embeddings and normalize them. Finally, we add the result to our model's (embedded) input and normalize it as well.
+%The input to our model consists of normalized summation of the 
+% summed identifier embeddings and positional embeddings concatenated with rest of the additional variables and the time series itself.
 
 %\subsection{Scale handling}
 
@@ -327,8 +313,35 @@ We adapt a weighted sampling technique in our training, similarly to \cite{enhan
 
 We calculate the weights by normalizing the scale factor $v_i$:
 
-$$ v_i = 1 + \frac{\sum^{t_0}_{t=1} y^{(i)}_t}{t_0} $$
+$$ v_i = 1 + \frac{\sum^{T}_{t=1} y^{(i)}_t}{T} \text{,}$$
+where $T$ is $y^{(i)}$'s length.
 
+\section{Metrics}
+
+\subsection{Quantile loss}
+
+Quantile loss is a metric designed to evaluate and/or train models designed with quantile prediction in mind.
+We define $\rho$-quantile loss as follows:
+
+$$ QL_\rho(\hat{y}, y) = max(\rho(y - \hat{y}), (\rho - 1)(y - \hat{y})) \text{,} $$
+
+\pk{picture maybe?} \mn{I would do something like here: https://towardsdatascience.com/quantile-regression-from-linear-models-to-trees-to-deep-learning-af3738b527c3 or (best) borrow it, but I am not sure how it works with licenses and copyrights?}
+
+where $\hat{y}$ denotes the model's prediction for the $\rho$ quantile and $y$ is the ground truth value.
+
+This metric is characterized by a stronger penalization of over-predictions for $\rho$ smaller than 0.5, and under-predictions for $\rho$ greater than 0.5. \pk{good intuition}
+
+\subsection{Risk metric}
+
+$Risk_\rho$ is a type of normalized quantile loss metric defined as follows for $\rho \in (0,1)$:
+
+$$ Risk_\rho(\hat{\textbf{y}}, \textbf{y}) 
+= 2\frac{\sum_{i,t}QL_\rho(\hat{y}^{(i)}_t, y^{(i)}_t)}
+{\sum_{i,t} |y^{(i)}_t|}$$
+
+%, where $y^{(i)}_t$ denotes $t$ time step of a series number $i$.
+
+It is very popular in time series prediction papers that use the Transformer (e.g. in \cite{enhancing}, \cite{deepar}), which lead us to choose it as the metric we use in the model's evaluation. \pk{sure, but why use it specifically in our case, over pointwise metrics?} \mn{I added some details here:} Furthermore, quantile loss allows us to assess how well our model estimates series' extreme values. It is useful for applications like electricity consumption risk estimation, where one might ask how likely it is in the given time-frame that the power consumption reaches a certain level. 
 
 %\begin{defi}
 %	$\rho$-quantile loss
@@ -347,10 +360,54 @@ $$ v_i = 1 + \frac{\sum^{t_0}_{t=1} y^{(i)}_t}{t_0} $$
 
 % Causal convolution: https://github.com/christianversloot/machine-learning-articles/blob/main/how-to-use-padding-with-keras.md
 
+\chapter{Approximating a continuous distribution with the Transformer}
+
+%1. How it works (uniform) Broadly
+
+%2. Possibly the non uniform way mentioned by Kozak and why if we actually used it
+
+%3. Rysuneczek kubełków as a filler
+
+%4. Wyjaśnienie kategoryczności
+
+%5. Może warto iść dowiedzieć się więcej o naukowcach którzy używali gaussiana
+
+%6. To jest naturalniejsze dla transformera bo jest z natury dyskretny (czemu w zasadzie jest ???)
+
+%7. Omijamy problem skalowania input chyba (my own thought)
+
+%Czy to znaczy że weighted sampling jest średnio useful dla serial?
+
+%8. Chyba powinnaś ogarnąć też architekturę Serial w tym rozdziale (bo wydawała się jakaś nietrywialna)
+
+While the Transformer was already proved to be a very impressive tool for the time series prediction, we believe it can be utilized even better for this purpose. We anticipate that the Transformer does not need the simplification of the time series forecasting task to the Gaussian's parameters prediction like the one used in \cite{enhancing}. In particular, one can apply it to model (almost) any distribution. This is made possible by leveraging Transformer's success in tasks requiring prediction of thousands categories like language translation.
+%We anticipate that the Transformer does not need the usual simplification of the time series forecasting task to the Gaussian's parameters prediction.
+
+This work explores whether Transformer's performance on time series prediction can be improved by training it to predict a categorical distribution for each point in the sequence instead of a Gaussian distribution.
+
+\section{Input serialization}
+
+\subsection{Basic serialization}
+tutaj rysunek kubełeczków itd
+
+\subsection{Non-uniform serialization}
+?
+
+\section{Input serialization}
+
+\section{Architecture}
+
+
+\chapter{Experiments}
+
+\chapter{Summary}
+
+
+
 
 
 \begin{thebibliography}{99}
-\addcontentsline{toc}{chapter}{Bibliografia}
+\addcontentsline{toc}{chapter}{Bibliography}
 
 %\bibliography{bibFile}
 
@@ -370,8 +427,7 @@ $$ v_i = 1 + \frac{\sum^{t_0}_{t=1} y^{(i)}_t}{t_0} $$
 
 \bibitem{lstm} Sepp Hochreiter and Jürgen Schmidhuber. \textit{Long short-term memory}. Neural computation, 9(8):1735–1780, 1997.
 
-\bibitem{gru} Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. \textit{On the properties of
-	neural machine translation: Encoder-decoder approaches}. arXiv preprint arXiv:1409.1259, 2014.
+\bibitem{gru} Kyunghyun Cho, Bart Van Merriënboer, Dzmitry Bahdanau, and Yoshua Bengio. \textit{On the properties of neural machine translation: Encoder-decoder approaches}. arXiv preprint arXiv:1409.1259, 2014.
 
 \bibitem{context} Urvashi Khandelwal, He He, Peng Qi, and Dan Jurafsky. \textit{Sharp nearby, fuzzy far away: How neural language models use context}. arXiv preprint arXiv:1805.04623, 2018.
 
@@ -382,6 +438,18 @@ Kaiser, and Illia Polosukhin. \textit{Attention is all you need}. NIPS 2017.
 Shazeer. \textit{Generating wikipedia by summarizing long sequences}. arXiv preprint arXiv:1801.10198, 2018.
 
 \bibitem{deepar} Valentin Flunkert, David Salinas, and Jan Gasthaus. \textit{Deepar: Probabilistic forecasting with autoregressive recurrent networks}. arXiv preprint arXiv:1704.04110, 2017.
+
+\bibitem{arima} George EP Box and Gwilym M Jenkins. \textit{Some recent advances in forecasting and control}. Journal of the
+Royal Statistical Society. Series C (Applied Statistics), 17(2):91–109, 1968.
+
+\bibitem{ssm} R. Hyndman, A. B. Koehler, J. K. Ord, and R .D. Snyder. \textit{Forecasting with Exponential Smoothing: The State Space Approach}. Springer Series in Statistics. Springer, 2008. ISBN
+9783540719182
+
+\bibitem{uber} Nikolay Laptev, Jason Yosinski, Li Erran Li and Slawek Smyl. \textit{Time-series extreme event forecasting with neural networks at Uber}. International Conference on Machine Learning.
+
+\bibitem{stock1} J. L. Ticknor. \textit{A bayesian regularized artificial neural network for stock market forecasting}. Expert Systems with Applications, 40(14):5501–5506, 2013.
+
+\bibitem{graph-forecast} Hongjie Chen, Ryan A. Rossi, Kanak Mahadik, Sungchul Kim and Hoda Eldardiry. \textit{Graph Deep Factors for Forecasting}. arXiv:2010.07373.
 
 %\bibitem[Blar16]{eb1} Elizjusz Blarbarucki, \textit{O pewnych
 %    aspektach pewnych aspektów}, Astrolog Polski, Zeszyt 16, Warszawa
