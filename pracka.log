@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  22 AUG 2022 13:54
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  4 SEP 2022 12:09
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -258,35 +258,33 @@ Underfull \hbox (badness 10000) in paragraph at lines 121--121
 
 ] [4
 
-]
+] [5] [6]
 Chapter 1.
-[5] [6]
-Chapter 2.
-<decoder3.png, id=38, 974.64125pt x 1064.97874pt>
+<decoder3.png, id=37, 974.64125pt x 1064.97874pt>
 File: decoder3.png Graphic file (type png)
 <use decoder3.png>
-Package pdftex.def Info: decoder3.png  used on input line 206.
+Package pdftex.def Info: decoder3.png  used on input line 207.
 (pdftex.def)             Requested size: 338.5121pt x 369.88582pt.
 [7
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 243--245
+Underfull \hbox (badness 10000) in paragraph at lines 244--246
 
  []
 
 [8 <./decoder3.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 273--275
+Underfull \hbox (badness 10000) in paragraph at lines 274--276
 
  []
 
 
-Overfull \hbox (4.17157pt too wide) in paragraph at lines 280--281
+Overfull \hbox (4.17157pt too wide) in paragraph at lines 281--282
 []\T1/cmr/m/n/10.95 The us-age of con-vo-lu-tion is sup-posed to off-set the do
 t-product at-ten-tion's context-blindness.
  []
 
 [9]
-Overfull \hbox (11.17358pt too wide) in paragraph at lines 328--329
+Overfull \hbox (11.17358pt too wide) in paragraph at lines 329--330
 [][]\T1/cmr/m/n/10 [pk: pic-ture maybe?][] [][mn: I would do some-thing like he
 re: https://towardsdatascience.com/quantile-
  []
@@ -294,52 +292,76 @@ re: https://towardsdatascience.com/quantile-
 [10] [11] [12
 
 ]
+Chapter 2.
+
+Overfull \hbox (25.57666pt too wide) in paragraph at lines 394--396
+\T1/cmr/m/n/10.95 datasets ($\OML/cmm/m/it/10.95 high$\T1/cmr/m/n/10.95 ), min-
+i-mal (usu-ally equal to 0) and the ex-act num-ber of cat-e-gories ($\OML/cmm/m
+/it/10.95 vocabulary[]size$\T1/cmr/m/n/10.95 ).
+ []
+
+[13] [14]
 Chapter 3.
-[13] [14
+[15
+
+]
+Overfull \hbox (2.6228pt too wide) in paragraph at lines 453--454
+[]\T1/cmr/m/n/10.95 Learning rate's sched-uler con-stant: $\OML/cmm/m/it/10.95 
+multifactor:constant \OMS/cmsy/m/n/10.95 2 f\OT1/cmr/m/n/10.95 0\OML/cmm/m/it/1
+0.95 :\OT1/cmr/m/n/10.95 001\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/
+m/it/10.95 :\OT1/cmr/m/n/10.95 003\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OM
+L/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 01\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95
+ 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 03\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/
+10.95 0\OML/cmm/m/it/10.95 :\OT1/cmr/m/n/10.95 1\OMS/cmsy/m/n/10.95 g$ 
+ []
+
+[16] [17] [18
 
 ]
 Chapter 4.
-[15] [16
+[19] [20
 
 ]
-Chapter 5.
-[17] [18
+Underfull \hbox (badness 1354) in paragraph at lines 593--595
+[]\T1/cmr/m/n/10.95 Alexander Alexan-drov, Kon-stanti-nos Beni-dis, Michael Boh
+lke-Schneider, Valentin
+ []
 
-] [19] (./pracka.aux) ) 
+[21] [22] (./pracka.aux) ) 
 Here is how much of TeX's memory you used:
- 3675 strings out of 483075
- 46697 string characters out of 5963834
- 299442 words of memory out of 5000000
- 18649 multiletter control sequences out of 15000+600000
+ 3684 strings out of 483075
+ 46824 string characters out of 5963834
+ 302497 words of memory out of 5000000
+ 18658 multiletter control sequences out of 15000+600000
  553388 words of font info for 68 fonts, out of 8000000 for 9000
  79 hyphenation exceptions out of 8191
- 33i,6n,37p,732b,245s stack positions out of 5000i,500n,10000p,200000b,80000s
- </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknap
-pen/ec/ecti1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknapp
-en/ec/ecbi1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappe
-n/ec/tcrm1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen
-/ec/ecrm1000.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/
-ec/ecbx2074.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/e
-c/ecbx1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec
-/ecrm1200.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/
-ecbx1200.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/e
-cbx2488.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
-rm1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecb
-x1440.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm
-1728.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1
-728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.
-pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></
-usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/sha
-re/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texl
-ive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/tex
-mf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/
-fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/
-type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/p
-ublic/amsfonts/symbols/msbm10.pfb>
-Output written on pracka.pdf (21 pages, 280730 bytes).
+ 33i,12n,37p,732b,301s stack positions out of 5000i,500n,10000p,200000b,80000s
+ </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jk
+nappen/ec/ecti1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jkn
+appen/ec/ecbi1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jkna
+ppen/ec/tcrm1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknap
+pen/ec/ecbx2074.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknapp
+en/ec/ecrm1000.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappe
+n/ec/ecbx1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen
+/ec/ecrm1200.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/
+ec/ecbx1200.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/e
+c/ecbx2488.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec
+/ecrm1095.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/
+ecbx1440.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/e
+crm1728.600pk> </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ec
+bx1728.600pk></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex
+10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb
+></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/
+share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/t
+exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/
+texmf-dist/fonts/type1/public/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-di
+st/fonts/type1/public/amsfonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fon
+ts/type1/public/amsfonts/cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type
+1/public/amsfonts/symbols/msbm10.pfb>
+Output written on pracka.pdf (24 pages, 297140 bytes).
 PDF statistics:
- 593 PDF objects out of 1000 (max. 8388607)
- 128 compressed objects within 2 object streams
+ 607 PDF objects out of 1000 (max. 8388607)
+ 134 compressed objects within 2 object streams
  0 named destinations out of 1000 (max. 500000)
  6 words of extra memory for PDF output out of 10000 (max. 10000000)
 

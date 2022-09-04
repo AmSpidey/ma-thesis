@@ -1,28 +1,29 @@
 \babel@toc {english}{}
-\contentsline {chapter}{\numberline {1}Introduction}{5}%
-\contentsline {section}{\numberline {1.1}Time series and their importance}{5}%
-\contentsline {section}{\numberline {1.2}Problem statement}{6}%
-\contentsline {section}{\numberline {1.3}Contributions}{6}%
-\contentsline {chapter}{\numberline {2}Background}{7}%
-\contentsline {section}{\numberline {2.1}Time series and notation}{7}%
-\contentsline {section}{\numberline {2.2}Transformer model architecture}{7}%
-\contentsline {subsection}{\numberline {2.2.1}Overview}{7}%
-\contentsline {section}{\numberline {2.3}Attention}{8}%
-\contentsline {subsection}{\numberline {2.3.1}Scaled Dot-Product Attention}{8}%
-\contentsline {subsection}{\numberline {2.3.2}Convolutional Attention}{9}%
-\contentsline {subsection}{\numberline {2.3.3}Multi-headed attention}{9}%
-\contentsline {section}{\numberline {2.4}Training}{10}%
-\contentsline {subsection}{\numberline {2.4.1}Additional input}{10}%
-\contentsline {subsection}{\numberline {2.4.2}Weighted sampling}{10}%
-\contentsline {section}{\numberline {2.5}Metrics}{10}%
-\contentsline {subsection}{\numberline {2.5.1}Quantile loss}{10}%
-\contentsline {subsection}{\numberline {2.5.2}Risk metric}{11}%
-\contentsline {chapter}{\numberline {3}Approximating a continuous distribution with the Transformer}{13}%
-\contentsline {section}{\numberline {3.1}Input serialization}{13}%
-\contentsline {subsection}{\numberline {3.1.1}Basic serialization}{13}%
-\contentsline {subsection}{\numberline {3.1.2}Non-uniform serialization}{13}%
-\contentsline {section}{\numberline {3.2}Input serialization}{13}%
-\contentsline {section}{\numberline {3.3}Architecture}{13}%
-\contentsline {chapter}{\numberline {4}Experiments}{15}%
-\contentsline {chapter}{\numberline {5}Summary}{17}%
-\contentsline {chapter}{Bibliography}{19}%
+\contentsline {chapter}{Introduction}{5}%
+\contentsline {chapter}{\numberline {1}Background}{7}%
+\contentsline {section}{\numberline {1.1}Time series and notation}{7}%
+\contentsline {section}{\numberline {1.2}Transformer model architecture}{7}%
+\contentsline {subsection}{\numberline {1.2.1}Overview}{7}%
+\contentsline {section}{\numberline {1.3}Attention}{8}%
+\contentsline {subsection}{\numberline {1.3.1}Scaled Dot-Product Attention}{8}%
+\contentsline {subsection}{\numberline {1.3.2}Convolutional Attention}{9}%
+\contentsline {subsection}{\numberline {1.3.3}Multi-headed attention}{9}%
+\contentsline {section}{\numberline {1.4}Training}{10}%
+\contentsline {subsection}{\numberline {1.4.1}Additional input}{10}%
+\contentsline {subsection}{\numberline {1.4.2}Weighted sampling}{10}%
+\contentsline {section}{\numberline {1.5}Metrics}{10}%
+\contentsline {subsection}{\numberline {1.5.1}Quantile loss}{10}%
+\contentsline {subsection}{\numberline {1.5.2}Risk metric}{11}%
+\contentsline {chapter}{\numberline {2}Approximating a continuous distribution with the Transformer}{13}%
+\contentsline {section}{\numberline {2.1}Serialization}{13}%
+\contentsline {section}{\numberline {2.2}Serial Predictor}{13}%
+\contentsline {chapter}{\numberline {3}Experiments}{15}%
+\contentsline {section}{\numberline {3.1}Datasets}{15}%
+\contentsline {section}{\numberline {3.2}Noise analysis in the datasets}{15}%
+\contentsline {section}{\numberline {3.3}Differences from previous works}{15}%
+\contentsline {section}{\numberline {3.4}Experiments setup}{16}%
+\contentsline {section}{\numberline {3.5}Results}{16}%
+\contentsline {chapter}{\numberline {4}Conclusion}{19}%
+\contentsline {section}{\numberline {4.1}Summary}{19}%
+\contentsline {section}{\numberline {4.2}Further work}{19}%
+\contentsline {chapter}{Bibliography}{21}%
