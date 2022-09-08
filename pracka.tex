@@ -324,7 +324,7 @@ This thesis explores whether the Transformer's performance on time series predic
 
 
 
-We further hypothesize that this ability to model a wide range of distributions could be very useful for especially difficult or non-standard datasets that simpler models would struggle with. For an instance, it would be impossible to train a Gaussian distribution-based Transformer how to recognize a multimodal distribution or a heavy-tailed one.
+We further hypothesize that this ability to model a wide range of distributions could be very useful for especially difficult or non-standard datasets that simpler models would struggle with. For an instance, it would be impossible to train a Gaussian distribution-based Transformer how to recognize a multimodal distribution (one with multiple modes).
 
 \section{Serial Predictor}
 The main contribution of our work is a time series forecasting model named Serial Predictor that uses the Transformer at its core and does not modify its architecture. The only introduced changes are to the input preprocessing, as we use a discretization process on it that we call \textbf{serialization}. It enables us to turn the input into a series of discrete tokens from the $[0, 1]$ interval. We hypothesize that serializing and embedding the time series before feeding it to a Transformer can make it easier for the model to train, since it helps to normalize the input.
@@ -452,10 +452,12 @@ We have not managed to reproduce the results from $\cite{enhancing}$ with our Ga
 	\end{center}
 \end{table}
 
-Finally, we present how different number of discretization buckets ($vocab\_size$) influences Serial Predictor's performance. For the $traffic$ dataset we used the best performing model's hyperparameters and fixed them, changing only the $vocab\_size$. For the $electricity$ dataset we used the second best performing model's parameters, as the first one could only be trained with our memory available with the lowest $vocab\_size$. In general one should expect that the higher $vocab\_size$ we use, the better performance we can achieve, since it allows us to have more precision (granularity) in our predictions.
+Finally, we present how different number of discretization buckets ($vocab\_size$) influences Serial Predictor's performance. In general one should expect that the higher $vocab\_size$ we use, the better performance we can achieve, since it allows us to have more precision (granularity) in our predictions and the Transformer model is successful in tasks requiring thousands of categories.
+
+For the $traffic$ dataset we used the best performing model's hyperparameters and fixed them, changing only the $vocab\_size$. For the $electricity$ dataset we used the second best performing model's parameters, as the first one could only be trained with our memory available with the lowest $vocab\_size$. 
 
 
-Our model works best with $vocab\_size = 4096$ on the $traffic$ dataset (the highest one), but in the $electricity$ dataset its performance is hindered with the highest granularity. This is likely caused by over-fitting of a larger model.
+Our model works best with $vocab\_size = 4096$ on the $traffic$ dataset (the highest one), but in the $electricity$ dataset its performance seems slightly hindered with the highest granularity. This suggests it might be still necessary to tweak the $vocab\_size$ to every dataset.
 
 
 
@@ -470,7 +472,7 @@ This thesis compares the accuracy of a Transformer model architecture used for t
 
 While the work presented in this thesis uses its own fair baseline model, the further experiments should focus on reproducing or readjusting the results from \cite{enhancing} and crafting a consistent comparison with the past time series research.
 
-Furthermore, it is important to attempt finding datasets that might benefit even more from our approach in comparison to established Transformer-based time series models. Since the Serial Predictor can theoretically be trained to output almost any distribution, we hope that it might perform better on data that has low determinism qualities like the stock or cryptocurrency markets.
+Furthermore, it is important to attempt finding datasets that might benefit even more from our approach in comparison to established Transformer-based time series models. Since the Serial Predictor can theoretically learn almost any distribution, we hope that it might perform better on data that has low determinism qualities like the stock or cryptocurrency markets.
 
 This work also suggests that it might be beneficial for any further research applying the Transformer model to try leveraging its ability to successfully predict many categories.
 This is especially relevant in fields where previous works simplified a task to one where it is easier to apply less complicated, non-neural network approaches.

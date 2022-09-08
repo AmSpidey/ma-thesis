@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  8 SEP 2022 14:38
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  8 SEP 2022 19:31
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -322,7 +322,7 @@ Chapter 4.
 [19] [20
 
 ]
-Underfull \hbox (badness 1354) in paragraph at lines 511--513
+Underfull \hbox (badness 1354) in paragraph at lines 513--515
 []\T1/cmr/m/n/10.95 Alexander Alexan-drov, Kon-stanti-nos Beni-dis, Michael Boh
 lke-Schneider, Valentin
  []
@@ -365,7 +365,7 @@ ic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/m
 sbm10.pfb>
-Output written on pracka.pdf (23 pages, 308274 bytes).
+Output written on pracka.pdf (23 pages, 308411 bytes).
 PDF statistics:
  647 PDF objects out of 1000 (max. 8388607)
  144 compressed objects within 2 object streams
