@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  8 SEP 2022 13:56
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  8 SEP 2022 14:38
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -266,28 +266,28 @@ Chapter 1.
 <decoder3.png, id=36, 974.64125pt x 1064.97874pt>
 File: decoder3.png Graphic file (type png)
 <use decoder3.png>
-Package pdftex.def Info: decoder3.png  used on input line 209.
+Package pdftex.def Info: decoder3.png  used on input line 185.
 (pdftex.def)             Requested size: 338.5121pt x 369.88582pt.
 [7
 
 ]
-Underfull \hbox (badness 10000) in paragraph at lines 246--248
+Underfull \hbox (badness 10000) in paragraph at lines 219--221
 
  []
 
 [8 <./decoder3.png>]
-Underfull \hbox (badness 10000) in paragraph at lines 276--278
+Underfull \hbox (badness 10000) in paragraph at lines 249--251
 
  []
 
 
-Overfull \hbox (4.17157pt too wide) in paragraph at lines 283--284
+Overfull \hbox (4.17157pt too wide) in paragraph at lines 256--257
 []\T1/cmr/m/n/10.95 The us-age of con-vo-lu-tion is sup-posed to off-set the do
 t-product at-ten-tion's context-blindness.
  []
 
 [9]
-Overfull \hbox (11.17358pt too wide) in paragraph at lines 332--333
+Overfull \hbox (11.17358pt too wide) in paragraph at lines 302--303
 [][]\T1/cmr/m/n/10 [pk: pic-ture maybe?][] [][mn: I would do some-thing like he
 re: https://towardsdatascience.com/quantile-
  []
@@ -305,7 +305,7 @@ Chapter 3.
 [15
 
 ]
-Overfull \hbox (2.6228pt too wide) in paragraph at lines 443--444
+Overfull \hbox (2.6228pt too wide) in paragraph at lines 394--395
 []\T1/cmr/m/n/10.95 Learning rate's sched-uler con-stant: $\OML/cmm/m/it/10.95 
 multifactor:constant \OMS/cmsy/m/n/10.95 2 f\OT1/cmr/m/n/10.95 0\OML/cmm/m/it/1
 0.95 :\OT1/cmr/m/n/10.95 001\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 0\OML/cmm/
@@ -322,7 +322,7 @@ Chapter 4.
 [19] [20
 
 ]
-Underfull \hbox (badness 1354) in paragraph at lines 580--582
+Underfull \hbox (badness 1354) in paragraph at lines 511--513
 []\T1/cmr/m/n/10.95 Alexander Alexan-drov, Kon-stanti-nos Beni-dis, Michael Boh
 lke-Schneider, Valentin
  []
@@ -335,7 +335,7 @@ LaTeX Warning: There were multiply-defined labels.
 Here is how much of TeX's memory you used:
  3699 strings out of 483075
  46950 string characters out of 5963834
- 306595 words of memory out of 5000000
+ 303595 words of memory out of 5000000
  18666 multiletter control sequences out of 15000+600000
  556343 words of font info for 78 fonts, out of 8000000 for 9000
  79 hyphenation exceptions out of 8191
@@ -365,7 +365,7 @@ ic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfo
 nts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/cm
 /cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/m
 sbm10.pfb>
-Output written on pracka.pdf (23 pages, 308086 bytes).
+Output written on pracka.pdf (23 pages, 308274 bytes).
 PDF statistics:
  647 PDF objects out of 1000 (max. 8388607)
  144 compressed objects within 2 object streams
