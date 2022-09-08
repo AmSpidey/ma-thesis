@@ -83,26 +83,27 @@
 %}
 
 % miesiąc i~rok:
-\date{August 2022}
+\date{September 2022}
 
 %Podać dziedzinę wg klasyfikacji Socrates-Erasmus:
 \dziedzina{ 
 %11.0 Matematyka, Informatyka:\\ 
 %11.1 Matematyka\\ 
 %11.2 Statystyka\\ 
-%11.3 Informatyka\\ 
-11.4 Sztuczna inteligencja\\ 
+11.3 Informatics, Computer Science\\ 
+%11.4 Sztuczna inteligencja\\ 
 %11.5 Nauki aktuarialne\\
 %11.9 Inne nauki matematyczne i informatyczne
 }
 
 %Klasyfikacja tematyczna wedlug AMS (matematyka) lub ACM (informatyka)
-\klasyfikacja{D. Software\\
-  D.127. Blabalgorithms\\
-  D.127.6. Numerical blabalysis}
+\klasyfikacja{I. Computing Methodologies\\
+  I.2. Artificial Intelligence\\
+  I.2.6. Learning \\
+  Connectionism and neural nets}
 
 % Słowa kluczowe:
-\keywords{time series, machine learning, self-attention model}
+\keywords{Time series, Neural network, Transformer, Self-attention model}
 
 % Tu jest dobre miejsce na Twoje własne makra i~środowiska:
 \newtheorem{defi}{Definition}[section]
@@ -115,9 +116,9 @@
 \begin{document}
 \maketitle
 
-%tu idzie streszczenie na strone poczatkowa
 \begin{abstract}
-  TODO abstract
+The Transformer model has excelled at various sequence-processing problems. However, the past works dedicated to time series forecasting with neural networks commonly simplified this task to predicting parameters of simple distributions, i.e. the Gaussian distribution. This thesis explores the idea of applying the Transformer to forecasting parameters of a granular categorical distribution for each future data point. This model is compared against the Gaussian distribution-based Transformer in the presented experiments.
+%This is done by comparing a Gaussian distribution-based Transformer with one used to predict parameters of a categorical distribution.
 \end{abstract}
 
 \tableofcontents
@@ -156,12 +157,13 @@ One solution to these problems was proposed in \cite{enhancing} by introducing c
 
 \section*{Problem statement}\label{r:problemst}
 
-Transformer proposed in \cite{enhancing} is centered around the idea of every point in a time series being drawn from some Gaussian distribution. Thus, the model's goal is to predict the parameters of these distributions, thus ensuring that each prediction is partially random and introducing Gaussian noise to it. \pk{formally?} \mn{I wanted to leave the formal definitions for the background, is that ok?}
+%Transformer proposed in \cite{enhancing} is centered around the idea of every point in a time series being drawn from some Gaussian distribution. Therefore the model's goal is to predict the parameters of these distributions, thus ensuring that each prediction is partially random and introducing Gaussian noise to it. \pk{formally?} \mn{I wanted to leave the formal definitions for the background, is that ok?} 
+Previously neural networks including the Transformer were commonly used for predicting parameters of a simple distribution like Gaussian per each forecasted point in time (\cite{deepar}, \cite{enhancing}). This work expands that idea to modeling any continuous distribution by approximating it with a categorical one. We present a comparison of both methods on commonly used datasets and metrics.
 
-In reality, as we show later in this work, not every time series' noise comes from a Gaussian distribution. \pk{examples? preferably with pictures} \mn{I'd probably leave it for later sections before our results or get back here if I find it's more appropriate here}
-It would be more useful if we could model any continuous distribution instead. One way to approximate it is by using a discrete distribution with categories that are granular enough. Obviously, this comes with a disadvantage of the model being able to predict only a discretely limited value, which could cost some accuracy. However, the expectation is that this problem can be solved easily by just using a sufficiently large number of categories.
+%In reality, as we show later in this work, not every time series' noise comes from a Gaussian distribution. \pk{examples? preferably with pictures} \mn{I'd probably leave it for later sections before our results or get back here if I find it's more appropriate here}
+%It would be more useful if we could model any continuous distribution instead. One way to approximate it is by using a discrete distribution with categories that are granular enough. Obviously, this comes with a disadvantage of the model being able to predict only a discretely limited value, which could cost some accuracy. However, the expectation is that this problem can be solved easily by just using a sufficiently large number of categories.
 
-The goal of our project was using the Transformer model to predict time series assuming that each point in the sequences belongs to a categorical distribution.
+%The goal of our project was using the Transformer model to forecast time series assuming that each point in the sequences comes from a categorical distribution.
 
 
 %One interesting direction that was not thoroughly explored 
@@ -182,7 +184,7 @@ My most important contributions are:
 
 \section{Time series and notation}
 
-We define time series as sequence of real numbers measured across time with a constant \textbf{frequency}. Frequency is defined in time units, e.g. weeks, days, hours. For multiple time series represented as a matrix $y$, where each row is a separate time series, $y^{(i)}_t$ denotes $t$ time step of a series number $i$.
+We define time series as sequence of real numbers measured across time with a constant \textbf{frequency}. Frequency is defined in time units, e.g. weeks, days, hours. For multiple time series represented as a matrix $\textbf{y}$, where each row is a separate time series, $y^{(i)}_t$ denotes $t$ time step of a series number $i$.
 
 One can extend the definition above to a sequence of any data type, but it is not necessary for the datasets that we use for this thesis.
 
@@ -308,14 +310,15 @@ We embed all of the additional variables to the same dimension, sum those embedd
 
 %\subsection{Scale handling}
 
-\subsection{Weighted sampling}
+\subsection{Scaling and weighted sampling}\label{s:scale}
 
-We adapt a weighted sampling technique in our training, similarly to \cite{enhancing} and \cite{deepar}. Its main purpose is to counteract model's tendency to underfit data of a large scale, since it occurs more rarely in the datasets. We test that idea by including the weighted versus uniform sampling in our grid searches.
+The time series in a single dataset can vary in their ranges, which can obstruct model's learning process. Due to network's non-linearities, it needs to size down the input in its first layer and then reverse this scaling on the output (\cite{deepar}). Therefore, following \cite{enhancing} and \cite{deepar} we scale the input and output by respectively dividing and multiplying it by a scale factor $v_i$:
 
-We calculate the weights by normalizing the scale factor $v_i$:
+$$ v_i = r + \frac{\sum^{T}_{t=1} y^{(i)}_t}{T} \text{,}$$
+where $T$ is $y^{(i)}$'s length and $r$ is a regularization term.
 
-$$ v_i = 1 + \frac{\sum^{T}_{t=1} y^{(i)}_t}{T} \text{,}$$
-where $T$ is $y^{(i)}$'s length.
+Furthermore, we adapt a weighted sampling technique in our training, similarly to \cite{enhancing} and \cite{deepar}. Its main purpose is to counteract the model's tendency to underfit data of a large scale, since it occurs more rarely in the datasets. 
+We calculate the weights by normalizing the scale factor $v_i$.
 
 \section{Metrics}
 
@@ -340,65 +343,49 @@ $$ Risk_\rho(\hat{\textbf{y}}, \textbf{y})
 = 2\frac{\sum_{i,t}QL_\rho(\hat{y}^{(i)}_t, y^{(i)}_t)}
 {\sum_{i,t} |y^{(i)}_t|}$$
 
-%, where $y^{(i)}_t$ denotes $t$ time step of a series number $i$.
-
 It is very popular in time series prediction papers that use the Transformer (e.g. in \cite{enhancing}, \cite{deepar}), which lead us to choose it as the metric we use in the model's evaluation. \pk{sure, but why use it specifically in our case, over pointwise metrics?} \mn{I added some details here:} Furthermore, quantile loss allows us to assess how well our model estimates series' extreme values. It is useful for applications like electricity consumption risk estimation, where one might ask how likely it is in the given time-frame that the power consumption reaches a certain level. 
-
-%\begin{defi}
-%	$\rho$-quantile loss
-%\end{defi}
-
-%We define $\rho$-quantile loss for $\rho \in (0,1)$ as follows:
-%
-%$$ R_\rho(x, ) $$
-
-%\begin{defi}
-%	\textbf{The encoder} is a stack of identical layers. Each layer has two sub-layers.
-%\end{defi}
-%We use a standard "scaled dot-product attention"\cite{tr}.
-%We can define self-attention as a function that takes as an input a query and 
-
-
-% Causal convolution: https://github.com/christianversloot/machine-learning-articles/blob/main/how-to-use-padding-with-keras.md
 
 \chapter{Approximating a continuous distribution with the Transformer}
 
+While the Transformer was already proved to be a very efficient tool for the time series prediction, we believe it has a lot more potential that could be used without changing its architecture. In the past, works like \cite{enhancing} were centered around the idea of every point in a time series being drawn from some simple distribution, e.g. the Gaussian one. Thus, the model's goal was to predict the parameters of these distributions.
+In contrast, one could apply a network to directly forecast series values, which seems like a much simpler approach. However, one of the main benefits of modeling distributions is how it opens the door to using the risk loss. This is especially useful when one considers fields where asking how likely is the time series to exceed a certain value is of high importance, e.g. high-risk markets or traffic jam predictions.
+
+This thesis explores whether the Transformer's performance on time series prediction can be improved by training it to predict a categorical distribution for each point in the sequence instead of a Gaussian one. Since continuous distributions can be approximated with categorical ones, this should enable our Transformer to model a broad spectrum of distributions. One should also take into consideration that Transformer is very successful in tasks requiring prediction of thousands categories like language translation (\cite{tr}). This could potentially indicate that the previous usages of the Transformer for the time series prediction were in fact underutilizing its abilities.
+%This is made feasible by the fact of the Transformer's success in tasks requiring prediction of thousands categories like language translation
+
+%This is made possible by leveraging Transformer's success in tasks requiring prediction of thousands categories like language translation.
 
 
-% serializacja inputu (a nie outputu):
-% omijamy problem skalowania inputu
-% czy weighted sampling jest uzyteczne dla serial?
-% napisz ze mozna meaningful embeddings dac do zserializowanego inputu.
-
-While the Transformer was already proved to be a very efficient tool for the time series prediction, we believe it has a lot more potential that could be used without changing its architecture.
-%can be utilized even better for this purpose. 
-Previously neural networks including the Transformer were commonly used for predicting parameters of a simple distribution like Gaussian for each forecasted point in time (\cite{deepar}, \cite{enhancing}). In this work we would like to expand that idea to modeling any continuous distribution by approximating it with a categorical one.
-%Although the most common idea is to use the neural network for predicting a simple distribution l
-%We anticipate that the Transformer does not need the common simplification of the time series forecasting task to the Gaussian's parameters prediction like the one used in \cite{enhancing}.
- %Specifically, one can apply it to model (almost) any distribution using the fact that one can approximate a continuous distribution using a categorical one. 
-This is made possible by leveraging Transformer's success in tasks requiring prediction of thousands categories like language translation. 
-%Since one can approximate a continuous distribution using a categorical one, it might be an actually more sustainable and efficient approach than the one from \cite{enhancing}.
-%We anticipate that the Transformer does not need the usual simplification of the time series forecasting task to the Gaussian's parameters prediction.
-
-This thesis explores whether the Transformer's performance on time series prediction can be improved by training it to predict a categorical distribution for each point in the sequence instead of a Gaussian distribution. Later on we directly compare both approaches.
-%Furthermore, by using the same serialization process for the input we hope to 
-
-\section{Serialization}
-
-We call \textbf{serialization} the reversible process of bucketing each value in a real-valued series, i.e. mapping it to a discrete category from a finite number of categories.
-We hypothesize that serializing and embedding the time series before feeding it to a Transformer can make it easier for the model to train.
-
-The reverse process is named \textbf{deserialization} and it can be used for approximating a continuous distribution with a categorical one.
-
-%Our serialization algorithm requires two parameters: maximum value we expect in the datasets (\textbf{high}), minimal (usually equal to 0) and exact number of categories (\textbf{vocabulary_size}).
-Our serialization algorithm requires two parameters: maximum value we expect in the datasets ($high$), minimal (usually equal to 0) and the exact number of categories ($vocabulary\_size$).
-We simply spread the categories uniformly from the minimal value to the maximal one. 
-
-Deserialization is the reverse of this process in which we output the minimal value assigned to a specific bucket. Since the number of categories we use is finite, serialization is bound to lose the precise value of some data points in a series. With enough buckets used, we expect this drop in precision should be negligible in comparison to our gains in the prediction's reliability.
+We further hypothesize that this ability to model a wide range of distributions could be very useful for especially difficult or non-standard datasets that simpler models would struggle with. For an instance, it would be impossible to train a Gaussian distribution-based Transformer how to recognize a multimodal distribution or a heavy-tailed one.
 
 \section{Serial Predictor}
-The main novelty of our work is a time series forecasting model named Serial Predictor.
-We use the Transformer's architecture as described in Section~\ref{s:architecture}. Our input consists of serialized and embedded time series. The model outputs $vocabulary\_size$ logits, each of them corresponding to a single bucket. We use a category cross entropy loss to train our model.
+The main contribution of our work is a time series forecasting model named Serial Predictor that uses the Transformer at its core and does not modify its architecture. The only introduced changes are to the input preprocessing, as we use a discretization process on it that we call \textbf{serialization}. It enables us to turn the input into a series of discrete tokens from the $[0, 1]$ interval. We hypothesize that serializing and embedding the time series before feeding it to a Transformer can make it easier for the model to train, since it helps to normalize the input.
+
+
+\subsection{Serialization}
+
+
+We call \textbf{serialization} the reversible process of bucketing each value in a real-valued series, i.e. mapping it to a discrete category from a finite number of categories.
+
+Our serialization algorithm requires two parameters: maximum value we expect in the datasets, minimal (usually equal to 0) and the exact number of categories ($vocabulary\_size$).
+To serialize a series, we first assign intervals of real values uniformly starting with the minimal value to $vocabulary\_size$ categories.
+Afterwards we bucket every value in the series to its appropriate interval/category and re-scale it to the $[0, 1]$ interval.
+%We simply spread the categories uniformly from the minimal value to the maximal one. 
+
+%The reverse process is named \textbf{deserialization} and it can be used for approximating a continuous distribution with a categorical one.
+Deserialization is the reverse of this process in which we output the minimal value assigned to a specific bucket. 
+
+Since the number of categories we use is finite, serialization is bound to lose the precise value of some data points in a series. With enough buckets used, we hope this drop in precision should be negligible in comparison to our gains in the prediction's reliability. %Furthermore, the anticipated drop in precision can be resolved by 
+
+\subsection{Architecture's summary}
+
+We use the Transformer's architecture as it was described in Section~\ref{s:architecture}. Our input consists of serialized and embedded time series. The final decoder layer outputs $vocabulary\_size$ logits, each of them corresponding to a single bucket. During the evaluation process we sample the buckets from a categorical distribution given by the values of output logits. Finally, we deserialize the sampled bucket.
+
+We use a category cross entropy loss to train our model.
+
+
+
+
 
 
 % Analiza tego że to dobrze powinno działać kiedy jest risky sytuacja (nagła zmiana)
@@ -416,10 +403,10 @@ I chose two datasets for presenting our results in this thesis: $electricity$ an
 The $electricity$ dataset is the electric consumption data collected from 370 customers recorded with a frequency of 1 hour (\cite{enhancing}, \cite{deepar}). The $traffic$ dataset consists of the hourly occupancy rates of 963 lanes in San Francisco (\cite{enhancing}, \cite{deepar}). Since $traffic$ displays higher differences between patterns observed in weekends and weekdays, it is considered a more demanding dataset and is useful for finding out how well the model can capture both long-term and short-term dependencies (\cite{enhancing}).
 
 
-\section{Noise analysis in the datasets}
-%Tu opisz czemu uważamy że nie jest gaussowski, wykres jakiś twój + analiza Łukasza
-
-In our preliminary analysis we decided to investigate whether 
+%\section{Noise analysis in the datasets}
+%%Tu opisz czemu uważamy że nie jest gaussowski, wykres jakiś twój + analiza Łukasza
+%
+%In our preliminary analysis we decided to investigate whether the datasets commonly used in 
 
 
 
@@ -428,9 +415,12 @@ In our preliminary analysis we decided to investigate whether
 During the late stages of our work we contacted the authors of \cite{enhancing} and received their code. We discovered that there was a significant difference in our evaluation processes. 
 Mainly, the author's predictions of multiple time steps during the evaluation were always ran based on historical data points (not autoregressively). Our suspicion is that this effect was not the authors' intention and might lead to differences in the results, since it makes the task easier for the model.
 
-Additionally, the datasets provided by GluonTS (\cite{gluonts}) are not identical to the ones used in the experiments from \cite{enhancing} or \cite{deepar}. Even though the data's source is the same, its processing was different (https://github.com/awslabs/gluon-ts/issues/830).
+Additionally, the datasets provided by GluonTS (\cite{gluonts}) are not identical to the ones used in the experiments from \cite{enhancing} or \cite{deepar}. Even though the data's source is the same, its processing was different\footnote{Source: https://github.com/awslabs/gluon-ts/issues/830.}.
 
-Furthermore, we did not include the sparse attention in our experiments. We also did not use the risk metric as the loss function, which might have impacted the model's performance negatively. All these differences should not have contributed to the gap between Gaussian and Serial Predictors, though. 
+Furthermore, we did not include the sparse attention in our experiments. 
+%We also did not use the risk metric as the loss function, which might have impacted the model's performance negatively.
+% All these differences should not have contributed to the gap between Gaussian and Serial Predictors, though.
+ This difference should not have contributed to the gap between Gaussian and Serial Predictors, though. 
 
 
 \section{Experiments setup}
@@ -456,7 +446,7 @@ We ran a randomized parameter grid search over the following parameters:
 	\item (Serial Predictor only) Number of buckets: $vocab\_size \in \{1024, 2048, 4096\}$ 
 \end{itemize}
 
-We ran every experiment with a 16GB of RAM limitation on the Entropy cluster (\cite{entropy}) containing various GPUs: GTX 1080 Ti, Titan X, Titan V, RTX 2080 Ti and RTX A6000.
+We ran every experiment with a 16GB of RAM limitation on a cluster containing various GPUs: GTX 1080 Ti, Titan X, Titan V, RTX 2080 Ti and RTX A6000.
 
 
 Evaluations were carried out autoregressively over a prediction length of 24 hours.
@@ -466,15 +456,9 @@ Evaluations were carried out autoregressively over a prediction length of 24 hou
 
 \section{Results}
 
-% powinnaś pokazać:
-% - high
-% - vocab size
-% weighted sampling
-% jeśli n_heads będzie ciekawe, to n_heads
-
+\subsection*{Best performing models' comparison}
 
 \begin{table}[h]
-
 \begin{center}
 \begin{tabular}
 	{ |p{2cm}|p{1.5cm}|p{1.5cm}||p{1.5cm}|p{1.5cm}||p{1.5cm}|p{1.5cm}|  }
@@ -484,11 +468,9 @@ Evaluations were carried out autoregressively over a prediction length of 24 hou
 	& \hfil $R_{0.5}$ & \hfil $R_{0.9}$ & \hfil $R_{0.5}$ & \hfil $R_{0.9}$
 	& \hfil $R_{0.5}$ & \hfil $R_{0.9}$
 	 \\
-	 
-	 
 	\hline
-	electricity & \hfil 0.127   & \hfil 0.087    & \hfil 0.069 &   \hfil 0.052 & \hfil 0.070 & \hfil 0.044 \\
-	traffic &  \hfil 0.402   & \hfil 0.224   & \hfil 0.135 &   \hfil 0.101 & \hfil 0.139 & \hfil 0.094\\
+	electricity & \hfil 0.127   & \hfil 0.087    & \textbf{\hfil 0.069} &   \hfil \textbf{0.041} & \hfil 0.070 & \hfil 0.044 \\
+	traffic &  \hfil 0.402   & \hfil 0.224   & \textbf{\hfil 0.123} &   \hfil \textbf{0.093} & \hfil 0.139 & \hfil 0.094\\
 	\hline
 \end{tabular}
 \caption{\label{tab:results}Results of our best performing models' and the ones cited from $\cite{enhancing}$. The best results for each dataset and metric are marked in bold.}
@@ -497,35 +479,53 @@ Evaluations were carried out autoregressively over a prediction length of 24 hou
 
 % TODO: do the bold
 
-% różnice w datasetach i ich stopniu trudności omówić
-% brak reproducibility 
-% 
+We have not managed to reproduce the results from $\cite{enhancing}$ with our Gaussian Predictor, which we attribute to many differences in our work that we investigated as I described in the Section \ref{s:diff}. There is, however, a large gap between the performance of our Gaussian Predictor and the Serial one in every evaluated metric and dataset, with the Serial Predictor scoring almost a third of the $R_{0.5}$ metric over the $traffic$ dataset. Furthermore, the Serial Predictor performs better in some categories or comparably to the model cited from $\cite{enhancing}$ despite the differences that we found out in the late study stages that were unfavorable for our evaluation process.
+
+\subsection*{Serial Predictor's performance analysis}
+
+%\begin{table}[h]
+%	\begin{center}
+%		\begin{tabular}
+%			{ |p{2cm}|p{1.5cm}|p{1.5cm}||p{1.5cm}|p{1.5cm}|  }
+%			\hline
+%			& \multicolumn{2}{c||}{weighted sampling} & \multicolumn{2}{|c|}{uniform sampling} \\
+%			\hline
+%			& \hfil $R_{0.5}$ & \hfil $R_{0.9}$ & \hfil $R_{0.5}$ & \hfil $R_{0.9} $
+%			\\
+%			\hline
+%			electricity & \hfil 0.081   & \hfil 0.042    & \hfil \textbf{0.069} &   \hfil \textbf{0.041} \\
+%			traffic &  \textbf{\hfil 0.122} &   \hfil \textbf{0.093}   & \hfil 0.151 &   \hfil 0.109\\
+%			\hline
+%		\end{tabular}
+%		\caption{\label{tab:results}Comparison of best performing Serial Predictor models with and without weighted sampling.}
+%	\end{center}
+%\end{table}
 
 
+\begin{table}[h]
+	\begin{center}
+		\begin{tabular}
+			{ |p{2cm}|p{1.5cm}|p{1.5cm}||p{1.5cm}|p{1.5cm}||p{1.5cm}|p{1.5cm}|   }
+			\hline
+			& \multicolumn{2}{c||}{$vocab\_size=1024$} & \multicolumn{2}{|c|}{$vocab\_size=2048$} & \multicolumn{2}{|c|}{$vocab\_size=4096$} \\
+			\hline
+			& \hfil $R_{0.5}$ & \hfil $R_{0.9}$ & \hfil $R_{0.5}$ & \hfil $R_{0.9} $ & \hfil $R_{0.5}$ & \hfil $R_{0.9} $
+			\\
+			\hline
+			electricity & \hfil 0.074   & \hfil 0.046    & \hfil \textbf{0.069} &   \hfil \textbf{0.044} & \hfil \textbf{0.069} &   \hfil 0.047 \\
+			
+			traffic &  \hfil 0.133 &   \hfil 0.106 & 0.135 &   \hfil 0.99 & \textbf{\hfil 0.123} &   \hfil \textbf{0.093} \\
+			\hline
+		\end{tabular}
+		\caption{\label{tab:results}Comparison of Serial Predictor models with different $vocab\_size$.}
+	\end{center}
+\end{table}
 
-%\begin{center}
-%	
-%	\begin{tabular}{ p{2cm}p{1.5cm}p{1.5cm}p{1.5cm}p{1.5cm}  }
-%
-%		& \multicolumn{2}{c}{Gaussian Predictor} & \multicolumn{2}{c}{Serial Predictor} \\
-%%		\hline
-%		& \hfil $R_{0.5}$ & \hfil $R_{0.9}$ & \hfil $R_{0.5}$ & \hfil $R_{0.9}$ \\
-%		\hline
-%		electricity & \hfil 0.127   & \hfil 0.087    & \hfil 0.069 &   \hfil 0.052 \\
-%		traffic &  \hfil 0.402   & \hfil 0.224   & \hfil 0.135 &   \hfil 0.101\\
-%		\hline
-%	\end{tabular}
-%	
-%\end{center}
-
-We have not managed to reproduce the results from $\cite{enhancing}$ with our Gaussian Predictor, which we attribute to many differences in our work that we investigated as I described in the section \ref{s:diff}. There is, however, a large gap between the performance of our Gaussian Predictor and the Serial one in every evaluated metric and dataset, with the Serial Predictor scoring almost a third of the $R_{0.5}$ metric over the $traffic$ dataset. Furthermore, the Serial Predictor performs better in some categories from the model cited from $\cite{enhancing}$ despite the differences that we found out in the late study stages that were unfavorable for our evaluation process.
+Finally, we present how different number of discretization buckets ($vocab\_size$) influences Serial Predictor's performance. For the $traffic$ dataset we used the best performing model's hyperparameters and fixed them, changing only the $vocab\_size$. For the $electricity$ dataset we used the second best performing model's parameters, as the first one could only be trained with our memory available with the lowest $vocab\_size$. In general one should expect that the higher $vocab\_size$ we use, the better performance we can achieve, since it allows us to have more precision (granularity) in our predictions.
 
 
-%suggesting that further work on searching for a good baseline and evaluation methods 
+Our model works best with $vocab\_size = 4096$ on the $traffic$ dataset (the highest one), but in the $electricity$ dataset its performance is hindered with the highest granularity. This is likely caused by over-fitting of a larger model.
 
-% Additionally, the datasets provided by \cite{gluonts} are not identical to the ones 
-
-% różnica w datasetach!11111111
 
 
 
@@ -548,19 +548,6 @@ This is especially relevant in fields where previous works simplified a task to 
 \begin{thebibliography}{99}
 \addcontentsline{toc}{chapter}{Bibliography}
 
-%\bibliography{bibFile}
-
-
-%@article{einstein,
-%	author =       "Albert Einstein",
-%	title =        "On the electrodynamics of moving bodies",
-%	journal =      "Annalen der Physik",
-%	volume =       "322",
-%	number =       "10",
-%	pages =        "891--921",
-%	year =         "1905"
-%}
-%
 \bibitem{enhancing} Shiyang Li, Xiaoyong Jin, Yao Xuan, Xiyou Zhou, Wenhu Chen, Yu-Xiang Wang and Xifeng Yan. \textit{Enhancing the Locality and Breaking the Memory
 	Bottleneck of Transformer on Time Series Forecasting}. arXiv:1907.00235, 2019.
 
@@ -592,45 +579,6 @@ Royal Statistical Society. Series C (Applied Statistics), 17(2):91–109, 1968.
 
 \bibitem{gluonts} Alexander Alexandrov, Konstantinos Benidis, Michael Bohlke-Schneider, Valentin Flunkert, Jan Gasthaus, Tim Januschowski, Danielle C. Maddix, Syama Rangapuram, David Salinas, Jasper Schulz, Lorenzo Stella,
 Ali Caner Türkmen and Yuyang Wang. \textit{GluonTS: Probabilistic and Neural Time Series Modeling in Python}. Journal of Machine Learning Research.
-
-\bibitem{entropy} https://entropy-doc.mimuw.edu.pl.
-
-%\bibitem[Blar16]{eb1} Elizjusz Blarbarucki, \textit{O pewnych
-%    aspektach pewnych aspektów}, Astrolog Polski, Zeszyt 16, Warszawa
-%  1916.
-%
-%\bibitem[Fif00]{ffgg} Filigran Fifak, Gizbert Gryzogrzechotalski,
-%  \textit{O blabalii fetorycznej}, Materiały Konferencji Euroblabal
-%  2000.
-%
-%\bibitem[Fif01]{ff-sr} Filigran Fifak, \textit{O fetorach
-%    $\sigma$-$\rho$}, Acta Fetorica, 2001.
-%
-%\bibitem[Głomb04]{grglo} Gryzybór Głombaski, \textit{Parazytonikacja
-%    blabiczna fetorów --- nowa teoria wszystkiego}, Warszawa 1904.
-%
-%\bibitem[Hopp96]{hopp} Claude Hopper, \textit{On some $\Pi$-hedral
-%    surfaces in quasi-quasi space}, Omnius University Press, 1996.
-%
-%\bibitem[Leuk00]{leuk} Lechoslav Leukocyt, \textit{Oval mappings ab ovo},
-%  Materiały Białostockiej Konferencji Hodowców Drobiu, 2000.
-%
-%\bibitem[Rozk93]{JR} Josip A.~Rozkosza, \textit{O pewnych własnościach
-%    pewnych funkcji}, Północnopomorski Dziennik Matematyczny 63491
-%  (1993).
-%
-%\bibitem[Spy59]{spyrpt} Mrowclaw Spyrpt, \textit{A matrix is a matrix
-%    is a matrix}, Mat. Zburp., 91 (1959) 28--35.
-%
-%\bibitem[Sri64]{srinis} Rajagopalachari Sriniswamiramanathan,
-%  \textit{Some expansions on the Flausgloten Theorem on locally
-%    congested lutches}, J. Math.  Soc., North Bombay, 13 (1964) 72--6.
-%
-%\bibitem[Whi25]{russell} Alfred N. Whitehead, Bertrand Russell,
-%  \textit{Principia Mathematica}, Cambridge University Press, 1925.
-%
-%\bibitem[Zen69]{heu} Zenon Zenon, \textit{Użyteczne heurystyki
-%    w~blabalizie}, Młody Technik, nr~11, 1969.
 
 \end{thebibliography}
 
