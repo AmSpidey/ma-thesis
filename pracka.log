@@ -1,4 +1,4 @@
-This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  14 SEP 2022 19:59
+This is pdfTeX, Version 3.14159265-2.6-1.40.20 (TeX Live 2019/Debian) (preloaded format=pdflatex 2022.5.16)  15 SEP 2022 16:00
 entering extended mode
  restricted \write18 enabled.
  %&-line parsing enabled.
@@ -426,6 +426,13 @@ File: decoder3.png Graphic file (type png)
 <use decoder3.png>
 Package pdftex.def Info: decoder3.png  used on input line 193.
 (pdftex.def)             Requested size: 338.5121pt x 369.88582pt.
+
+Overfull \hbox (3.27988pt too wide) in paragraph at lines 199--202
+\T1/cmr/m/n/10.95 po-si-tional en-cod-ing layer, $\OML/cmm/m/it/10.95 N$ \T1/cm
+r/m/n/10.95 iden-ti-cal de-coder lay-ers, layer nor-mal-iza-tion, and a fully-c
+onnected
+ []
+
 [7
 
 ]
@@ -438,26 +445,17 @@ Underfull \hbox (badness 10000) in paragraph at lines 246--248
 
  []
 
-
-Overfull \hbox (4.17157pt too wide) in paragraph at lines 253--254
-[]\T1/cmr/m/n/10.95 The us-age of con-vo-lu-tion is sup-posed to off-set the do
-t-product at-ten-tion's context-blindness.
- []
-
 [9] [10] [11] [12
 
 ]
 Chapter 2.
 
-Underfull \vbox (badness 10000) has occurred while \output is active []
+Underfull \vbox (badness 4569) has occurred while \output is active []
 
  [13]
 [14]
 Chapter 3.
-
-Underfull \vbox (badness 1622) has occurred while \output is active []
-
- [15
+[15
 
 ]
 Overfull \hbox (1.13937pt too wide) in paragraph at lines 383--384
@@ -473,9 +471,6 @@ f buck-ets: $\OML/cmm/m/it/10.95 vocab[]size \OMS/cmsy/m/n/10.95 2 f\OT1/cmr/m/
 n/10.95 1024\OML/cmm/m/it/10.95 ; \OT1/cmr/m/n/10.95 2048\OML/cmm/m/it/10.95 ; 
 \OT1/cmr/m/n/10.95 4096\OMS/cmsy/m/n/10.95 g$ 
  []
-
-
-LaTeX Warning: `h' float specifier changed to `ht'.
 
 
 LaTeX Warning: `h' float specifier changed to `ht'.
@@ -509,39 +504,38 @@ Package atveryend Info: Empty hook `AtVeryVeryEnd' on input line 512.
 Here is how much of TeX's memory you used:
  7728 strings out of 483075
  110417 string characters out of 5963834
- 395942 words of memory out of 5000000
+ 392942 words of memory out of 5000000
  22511 multiletter control sequences out of 15000+600000
  555642 words of font info for 77 fonts, out of 8000000 for 9000
  79 hyphenation exceptions out of 8191
- 34i,12n,37p,740b,381s stack positions out of 5000i,500n,10000p,200000b,80000s
+ 34i,12n,37p,732b,381s stack positions out of 5000i,500n,10000p,200000b,80000s
  </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecti1095.600pk
 > </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0900.600pk>
  </home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0600.600pk> 
-</home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1000.600pk> <
-/home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> </
-home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> </h
-ome/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </ho
-me/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </hom
-e/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </home
-/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home/
-zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/z
-ly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/zl
-y/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/zly
-/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk> </home/zly/
-.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk></usr/share/t
-exlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texlive
-/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texmf
--dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/f
-onts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/ty
-pe1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pub
-lic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsf
-onts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/c
-m/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols/
-msbm10.pfb>
-Output written on pracka.pdf (23 pages, 300319 bytes).
+</home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm0800.600pk> <
+/home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/tcrm1095.600pk> </
+home/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2074.600pk> </h
+ome/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1095.600pk> </ho
+me/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1200.600pk> </hom
+e/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1200.600pk> </home
+/zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx2488.600pk> </home/
+zly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1095.600pk> </home/z
+ly/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1440.600pk> </home/zl
+y/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecrm1728.600pk> </home/zly
+/.texlive2019/texmf-var/fonts/pk/ljfour/jknappen/ec/ecbx1728.600pk></usr/share/
+texlive/texmf-dist/fonts/type1/public/amsfonts/cm/cmex10.pfb></usr/share/texliv
+e/texmf-dist/fonts/type1/public/amsfonts/cm/cmmi10.pfb></usr/share/texlive/texm
+f-dist/fonts/type1/public/amsfonts/cm/cmmi6.pfb></usr/share/texlive/texmf-dist/
+fonts/type1/public/amsfonts/cm/cmmi8.pfb></usr/share/texlive/texmf-dist/fonts/t
+ype1/public/amsfonts/cm/cmr10.pfb></usr/share/texlive/texmf-dist/fonts/type1/pu
+blic/amsfonts/cm/cmr8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/ams
+fonts/cm/cmsy10.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/
+cm/cmsy8.pfb></usr/share/texlive/texmf-dist/fonts/type1/public/amsfonts/symbols
+/msbm10.pfb>
+Output written on pracka.pdf (23 pages, 296902 bytes).
 PDF statistics:
- 876 PDF objects out of 1000 (max. 8388607)
- 414 compressed objects within 5 object streams
+ 860 PDF objects out of 1000 (max. 8388607)
+ 411 compressed objects within 5 object streams
  80 named destinations out of 1000 (max. 500000)
  230 words of extra memory for PDF output out of 10000 (max. 10000000)
 
